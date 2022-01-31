@@ -1,0 +1,113 @@
+<section class="table_information">
+    <div class="table_container ">
+         <table class="table-auto w-full leading-normal">
+        <thead>
+          <tr>
+            <th  class="">Account name</th>
+            <th  class="">Account Number </th>
+            <th class="">Bills Category</th>
+
+            <th  class="">Serial Number</th>
+            
+            <th  class="">Amount</th>
+            <th  class="">Period</th>
+
+            <th  class="">Status</th>
+            <th  class="" style="padding-right: 1rem; padding-left: 1rem">View</th>  
+          </tr>
+        </thead>
+        <tbody>
+        
+            <tr  *ngIf="isLoading">
+                <td  class="">   
+                    <ng-container >
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                </td>
+                <td class=""> 
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                  
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                  
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                 
+                </td>
+                <td class="" style="width: 20%;"> 
+                
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                   
+                </td>
+                
+              </tr>
+                  
+
+          <tr   *ngFor="let trans of billsTransactionsList; index as i">  
+            <td  class="">   
+                    {{ trans?.accountname }}
+            </td>
+            <td class=""> 
+               {{ trans?.accountnumber }}
+              
+            </td>
+            <td class=""> 
+                    {{ trans?.category }}  
+            </td>
+            <td class="">
+               
+              {{ trans?.reference_number }}   
+              
+            </td>
+            <td class="">
+               
+              {{ trans?.amount}}   
+              
+            </td>
+            <td class="">
+               
+              {{ (trans?.created_on | date:"mediumDate") + '-' + ' N/A'  }}  
+             
+            </td>
+           
+            <td class="" style="width: 9.2rem; max-width: 9.5rem;  white-space: nowrap; overflow: hidden;"> 
+                    <div  [ngClass]="{'text-ro-green': trans.response_message == 'successful', 'text-ro-border-red': trans.response_message != 'successfull' }">
+                        {{ trans?.response_message }}   
+                    </div>
+            </td>
+            <td class="relative" style="text-align: left;"><i (click)="showSummary(trans)" class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+          </tr>
+         
+        </tbody>
+      </table>
+    </div>
+   
+   </section>

@@ -1,0 +1,88 @@
+<div class="body_content users_component">
+    <div class=" flex-auto w-10/12 overflow-y-scroll mb-4 body_content_child">
+      <div class="general">
+         <!-- filter and intiateLock buttons -->
+         <section class=" w-full flex items-end px-1 h-20 mb-4 mt-3 rounded ">
+            <div class="w-7/12 toggle_Group h-5/6 rounded-lg">
+                <div class="w-full flex justify-around items-center h-full px-3">
+                    <div (click)="setSelected($event)" id="all" class="capitalize  toggle_Group_item px-4 rounded-2xl py-2">
+                        <svg id="all_users" xmlns="http://www.w3.org/2000/svg" width="19" height="16" viewBox="0 0 20.524 23.249">
+                            <g id="Group_7943" data-name="Group 7943" transform="translate(0 1.5)">
+                              <path id="Path_75286" data-name="Path 75286" d="M0,0H20.524V20.927H0Z" transform="translate(0 0.822)" fill="none"/>
+                              <path id="Path_75287" data-name="Path 75287" d="M12.167,12.31c3.743,0,7.041,1.47,8.822,3.665l-.685-.844c-1.449-1.569-5.2-2.822-8.112-2.822s-6.549,1.253-8,2.822l-.822.844A11.349,11.349,0,0,1,12.167,12.31Zm0-16.609A4.994,4.994,0,0,1,17.337.414v2.8a4.853,4.853,0,0,1-5.054,4.669,4.9,4.9,0,0,1-5.11-4.669V.414A4.835,4.835,0,0,1,12.167-4.3Z" transform="translate(-1.925 4.299)"   stroke-width="3"/>
+                            </g>
+                          </svg>
+                          
+                        all users
+                    </div>
+                    <div  (click)="setSelected($event)" id="lockedProfiles" class="capitalize  toggle_Group_item px-4 rounded-2xl py-2">
+                        <svg id="lock_icon" xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19.476 24.588">
+                            <g id="Group_6591" data-name="Group 6591" transform="translate(-22.254 -19.484)">
+                              <g id="unlock_user_avatar_people_male_profile" data-name="unlock, user, avatar, people, male, profile" transform="translate(22.504 19.735)">
+                                <path id="Path_75455" data-name="Path 75455" d="M17.6,13.144c2.481,0,4.481-2.737,4.481-5.007A4.335,4.335,0,0,0,17.6,4a4.379,4.379,0,0,0-4.489,4.16C13.109,10.407,15.116,13.144,17.6,13.144Zm0-7.685a2.876,2.876,0,0,1,3.022,2.7c0,1.562-1.423,3.547-3.022,3.547s-3.029-1.985-3.029-3.547A2.919,2.919,0,0,1,17.6,5.459ZM25.976,21.15a5.051,5.051,0,0,1-1.868,3.576,9.422,9.422,0,0,1-6.16,2.627h0a.73.73,0,1,1,0-1.46A7.868,7.868,0,0,0,23.13,23.7a3.7,3.7,0,0,0,1.387-2.554A3.649,3.649,0,0,0,23.1,18.6a7.853,7.853,0,0,0-7.846-1.847.73.73,0,0,1-.453-1.387,9.335,9.335,0,0,1,9.305,2.19,5.036,5.036,0,0,1,1.868,3.6Zm-12.407.365h0V20.42A2.567,2.567,0,0,0,8.46,19.91a.744.744,0,0,0,1.46.292,1.1,1.1,0,0,1,2.19.219v1.095H8.46A1.46,1.46,0,0,0,7,22.975v3.649a1.46,1.46,0,0,0,1.46,1.46h5.109a1.46,1.46,0,0,0,1.46-1.46V22.975A1.46,1.46,0,0,0,13.569,21.515ZM8.46,26.624V22.975h5.109v3.649Z" transform="translate(-7 -3.996)"  stroke-width="0.5"/>
+                              </g>
+                            </g>
+                        </svg>
+                        locked profiles
+                    </div>
+                    <div (click)="setSelected($event)" id="activeUsers" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">
+                        <svg id="unlock_icon" xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19.476 24.588">
+                            <g id="Group_6591" data-name="Group 6591" transform="translate(-22.254 -19.484)">
+                              <g id="unlock_user_avatar_people_male_profile" data-name="unlock, user, avatar, people, male, profile" transform="translate(22.504 19.735)">
+                                <path id="Path_75455" data-name="Path 75455" d="M17.6,13.144c2.481,0,4.481-2.737,4.481-5.007A4.335,4.335,0,0,0,17.6,4a4.379,4.379,0,0,0-4.489,4.16C13.109,10.407,15.116,13.144,17.6,13.144Zm0-7.685a2.876,2.876,0,0,1,3.022,2.7c0,1.562-1.423,3.547-3.022,3.547s-3.029-1.985-3.029-3.547A2.919,2.919,0,0,1,17.6,5.459ZM25.976,21.15a5.051,5.051,0,0,1-1.868,3.576,9.422,9.422,0,0,1-6.16,2.627h0a.73.73,0,1,1,0-1.46A7.868,7.868,0,0,0,23.13,23.7a3.7,3.7,0,0,0,1.387-2.554A3.649,3.649,0,0,0,23.1,18.6a7.853,7.853,0,0,0-7.846-1.847.73.73,0,0,1-.453-1.387,9.335,9.335,0,0,1,9.305,2.19,5.036,5.036,0,0,1,1.868,3.6Zm-12.407.365h0V20.42A2.567,2.567,0,0,0,8.46,19.91a.744.744,0,0,0,1.46.292,1.1,1.1,0,0,1,2.19.219v1.095H8.46A1.46,1.46,0,0,0,7,22.975v3.649a1.46,1.46,0,0,0,1.46,1.46h5.109a1.46,1.46,0,0,0,1.46-1.46V22.975A1.46,1.46,0,0,0,13.569,21.515ZM8.46,26.624V22.975h5.109v3.649Z" transform="translate(-7 -3.996)"  stroke-width="0.5"/>
+                              </g>
+                            </g>
+                        </svg> 
+                        unlocked profiles
+                    </div>
+                    <div [ngClass]="{'opacity-10': fadeApproval, 'pointer-events-none': fadeApproval}" class="capitalize text-white toggle_Group_item  px-4 rounded-2xl py-2">Approvals</div>
+                </div>
+            </div>
+             <!-- (click)="showCustomerInfoModal($event)"   -->
+            <div class="w-5/12 h-5/6 flex justify-end items-end px-1">
+                <button *ngIf="!showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
+                    <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
+                    <span class="pt-[5px]">initiate Profile unlock</span>
+                </button>
+
+                <button *ngIf="showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
+                    <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
+                    <span class="pt-[5px]">Lock A Profile</span>
+                </button>
+            </div>
+         </section>
+
+          <!-- search date and filter -->
+            <section class="searchAndDate dashboardSearchContainer relative">
+                <div class="searchAndDate__body py-1 px-1" style="overflow:visible">
+                <div class="search px-4 py-2">
+                    <label for=""> What are you looking for?</label>
+                    <div class="filter py-3">
+                        <app-retailomni-input (change)="handleEvent($event)"></app-retailomni-input>
+                    </div>
+                </div>
+               
+                    <div class="search px-4 py-3">
+                        <label for="" class="my-1"></label>
+                        <div class="h-[3.5rem]">
+                            <app-retailomni-date-range
+                              [information]="info"
+                              (fetchDataWithDateParams)="fetchResults($event)"
+                              ></app-retailomni-date-range>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+                <router-outlet></router-outlet>
+     
+        </div>
+    </div>
+
+    <!-- quick actions -->
+    <div class="quick_actions h-11/12 w-2/12">
+         <app-quick-actions></app-quick-actions>
+    </div>
+   
+</div>

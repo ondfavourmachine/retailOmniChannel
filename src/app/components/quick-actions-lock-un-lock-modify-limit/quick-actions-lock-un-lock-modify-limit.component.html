@@ -1,0 +1,201 @@
+<div [style.display]="data.typeOfAction == 'lock' || data.typeOfAction == 'unlock' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div *ngIf="data.typeOfAction == 'lock' || data.typeOfAction == 'unlock'; else modifyLimitHeader" class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 capitalize"> {{ data?.typeOfAction == 'lock' ? 'Lock A Profile' : 'Unlock A Profile'}}  </h5> 
+          </div> 
+          <ng-template #modifyLimitHeader>
+            <div  class="flex w-full self-center items-center h-10">
+                <h5  class="ml-3 mr-2 capitalize"> Update Limit  </h5> 
+            </div> 
+          </ng-template>
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="w-full h-auto px-7  py-3 bg-[#F3F9FF]">
+        <div class="h-[38vh] pt-10 px-8 w-full">
+
+            <div class="question relative mt-3 mb-4">
+                <label for="question_input" class="question_text">Whose Profile Do you want to  {{ data?.typeOfAction == 'lock' ? 'Lock' : 'Unlock' }}? </label>
+                <div class="form-group w-full">
+                    <input [(ngModel)]="customerInfo" name="customerInfo" 
+                    placeholder="Search by name or customer account"
+                    id="question_input" type="text" class="w-full h-[3.7rem] border border-stone-300 rounded-sm ">
+                </div>
+
+                <span (click)="startSeachingForCustomerInfo()" 
+                class="search "><i class="fa fa-search mr-2 "></i> search</span>
+            </div>
+
+            <div [style.opacity]="displayTable ? '1': '0'">
+                <section class="table_information">
+                        <div class="table_container ">
+                            <table class="table-auto w-full leading-normal">
+                            <thead>
+                                <tr>
+                                <th  class="">Customer ID</th>
+                                <th  class="">Account Number</th>
+                        
+                                <th  class="">User Name</th>
+                                <th  class="">Account Status</th>   
+                                <th  class=""></th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                        
+                                <tr  *ngIf="isLoading">
+                                <td  class="">   
+                                    <ng-container >
+                                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                    
+                                </td>
+                                <td class=""> 
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                    
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                </td>
+                                
+                                </tr>
+                        
+                                <tr  >
+                                <td  class=""> {{ completeCustomerInfo?.customerid }}</td>
+                                <td class=""> {{ completeCustomerInfo?.primarY_ACCOUNT }}</td>
+                                <td class=""> {{ completeCustomerInfo?.username || 'N/A'}}</td>
+                                <td [ngClass]="{ 'text-ro-green':  completeCustomerInfo?.currentStatus == 'Account Active', 'text-ro-border-red': completeCustomerInfo?.currentStatus != 'Account Active' }" class=""> {{ completeCustomerInfo?.currentStatus}} </td>
+                                <td class="relative" ><i class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+                                </tr>
+                            
+                            </tbody>
+                            </table>
+                        </div>   
+                </section>
+            </div>
+        </div>
+    </div>
+
+   
+ </div>
+
+
+ <div [style.display]="data.typeOfAction == 'modify limit' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div *ngIf="data.typeOfAction == 'lock' || data.typeOfAction == 'unlock'; else modifyLimitHeader" class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 capitalize"> {{ data?.typeOfAction == 'lock' ? 'Lock A Profile' : 'Unlock A Profile'}}  </h5> 
+          </div> 
+          <ng-template #modifyLimitHeader>
+            <div  class="flex w-full self-center items-center h-10">
+                <h5  class="ml-3 mr-2 capitalize"> Update Limit  </h5> 
+            </div> 
+          </ng-template>
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="w-full h-auto px-7  py-3 bg-[#F3F9FF]">
+        <div class="h-[38vh] pt-10 px-8 w-full">
+
+            <div class="question relative mt-3 mb-4">
+                <label for="question_input" class="question_text">Search for account to Update </label>
+                <div class="form-group w-full">
+                    <input [(ngModel)]="customerInfo" name="customerInfo" 
+                    placeholder="Search by Account Number, Customer ID or username"
+                    id="question_input" type="text" class="w-full h-[3.7rem] border border-stone-300 rounded-sm ">
+                </div>
+
+                <span (click)="startSeachingForCustomerInfo()" 
+                class="search "><i class="fa fa-search mr-2 "></i> search</span>
+            </div>
+
+            <div [style.opacity]="displayTable ? '1': '0'">
+                <section class="table_information">
+                        <div class="table_container ">
+                            <table class="table-auto w-full leading-normal">
+                            <thead>
+                                <tr>
+                                <th  class="">Username</th>
+                                <th  class="">Account Number</th>
+                                <th  class="">Account Type</th>
+                                <th  class="">Daily Limit(NGN)</th>   
+                                <th  class="">Token Limit(NGN)</th>
+                                <th>Action</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                        
+                                <tr  *ngIf="isLoading">
+                                <td  class="">   
+                                    <ng-container >
+                                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                    
+                                </td>
+                                <td class=""> 
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                    
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                
+                                </td>
+                                <td class="">
+                                    <ng-container >
+                                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                                        </ng-container>
+                        
+                                </td>
+                                
+                                </tr>
+                        
+                                <tr  >
+                                <td  class=""> {{ completeCustomerInfo?.customerid }}</td>
+                                <td class=""> {{ completeCustomerInfo?.primarY_ACCOUNT }}</td>
+                                <td class=""> {{ completeCustomerInfo?.username || 'N/A'}}</td>
+                                <td [ngClass]="{ 'text-ro-green':  completeCustomerInfo?.currentStatus == 'Account Active', 'text-ro-border-red': completeCustomerInfo?.currentStatus != 'Account Active' }" class=""> {{ completeCustomerInfo?.currentStatus}} </td>
+                                <td class="relative" ><i class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+                                </tr>
+                            
+                            </tbody>
+                            </table>
+                        </div>   
+                </section>
+            </div>
+        </div>
+    </div>
+
+   
+ </div>

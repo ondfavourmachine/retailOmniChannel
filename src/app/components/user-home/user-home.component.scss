@@ -1,0 +1,57 @@
+
+.body_content{
+    --color-selected: #036;
+    & label{
+        font-family: 'Campton Book';
+        @apply text-ro-genBlueColor-1 w-full font-normal;
+    }
+    & .search{
+        height: 7rem;
+    }
+
+    & .initiateProfileUnlock{
+        font-family: 'Campton Light';
+        font-size: .85rem;
+        @apply px-4 cursor-pointer py-2 uppercase inline-flex items-center justify-center bg-ro-lightRed-bg text-white rounded-sm;
+    }
+
+    & .toggle_Group{
+        background: url(../../../assets/images/bg-login-1.png);
+
+        & .toggle_Group_item{
+            font-family: 'Campton Light';
+            font-size: .85rem;
+            transition: all 0.4s ease-in;
+            @apply cursor-pointer flex text-white;
+
+            & svg{
+                @apply pr-1;
+            }
+
+            & #all_users #Path_75287{
+                fill: none;
+                stroke: #fff;
+            }
+
+            & #lock_icon #Path_75455, #unlock_icon #Path_75455{
+                fill: #fff;
+                stroke: #fff;
+            }
+
+           &.selected {
+               font-size: .9rem;
+               @apply bg-white font-semibold text-[#036];
+
+               & #all_users #Path_75287{
+                fill: none;
+                stroke: var(--color-selected);
+             }
+
+               & #lock_icon #Path_75455, #unlock_icon #Path_75455{
+                fill: var(--color-selected);
+                stroke: var(--color-selected);
+            }
+           }
+        }
+    }
+}

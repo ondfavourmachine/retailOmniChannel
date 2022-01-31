@@ -1,0 +1,91 @@
+<div class="body_content users_component">
+    <div class=" flex-auto w-10/12 overflow-y-scroll mb-4 body_content_child">
+      <div class="general">
+         <!-- filter and intiateLock buttons -->
+         <section class=" w-full flex items-end px-1 h-20 mb-4 mt-3 rounded ">
+            <div class="w-8/12 toggle_Group h-5/6 rounded-lg">
+                <div class="w-full flex justify-around items-center h-full px-3">
+                    <div (click)="setSelected($event)" id="nip" class="capitalize  toggle_Group_item px-4 rounded-2xl py-2">
+                          <svg id="all_users" width="20.479" height="17.965" viewBox="0 0 20.479 17.965">
+                            <g id="noun_transaction_2382019" transform="translate(1.102 0.707)">
+                              <g id="_24" data-name="24" transform="translate(0 0)">
+                                <path id="Path_75442" data-name="Path 75442" d="M19.947,9.269H4.631L8.2,5.189,7.238,4.34,1.8,10.556H19.947Z" transform="translate(-1.8 -4.34)"  stroke-width="1"/>
+                                <path id="Path_75443" data-name="Path 75443" d="M2,18v1.287H17.315l-3.571,4.08.965.849L20.147,18Z" transform="translate(-1.871 -7.664)"  stroke-width="1"/>
+                              </g>
+                            </g>
+                          </svg>
+                          
+                        Nip Transactions
+                    </div>
+                    <div  (click)="setSelected($event)" id="mobile" class="capitalize  toggle_Group_item px-4 rounded-2xl py-2">
+                        
+                        Mobile
+                    </div>
+                    <div (click)="setSelected($event)" id="rib" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">  
+                        RIB
+                    </div>
+                    <div (click)="setSelected($event)" id="ussd" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">
+                       
+                        USSD
+                    </div>
+
+                    <div (click)="setSelected($event)" id="nqr" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">
+                        
+                        NQR
+                    </div>
+
+                    <div (click)="setSelected($event)" id="bills" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">
+                      
+                        Bills
+                    </div>
+                    <div (click)="setSelected($event)" id="airtime" class="capitalize toggle_Group_item px-4 rounded-2xl py-2">
+                       
+                        Airtime
+                    </div>
+                </div>
+            </div>
+             <!-- (click)="showCustomerInfoModal($event)"   -->
+            <div class="w-4/12 h-5/6 flex justify-end items-end px-1">
+                <!-- <button *ngIf="!showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
+                    <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
+                    <span class="pt-[5px]">initiate Profile unlock</span>
+                </button> -->
+
+                <button (click)="fetchAllUsersForLimitModification($event)"   type="button"  class="initiateProfileUnlock"> 
+                    <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
+                    <span class="pt-[5px]">Modify Limit</span>
+                </button>
+            </div>
+         </section>
+
+          <!-- search date and filter -->
+            <section class="searchAndDate dashboardSearchContainer relative">
+                <div class="searchAndDate__body py-1 px-1" style="overflow:visible">
+                <div class="search px-4 py-2">
+                    <label for=""> What are you looking for?</label>
+                    <div class="filter py-3">
+                        <app-retailomni-input (change)="handleEvent($event)"></app-retailomni-input>
+                    </div>
+                </div>
+               
+                    <div class="search px-4 py-3">
+                        <label for="" class="my-1"></label>
+                        <div class="h-[3.5rem]">
+                            <app-retailomni-date-range
+                              [information]="info"
+                              (fetchDataWithDateParams)="fetchResults($event)"
+                              ></app-retailomni-date-range>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <!-- quick actions -->
+    <div class="quick_actions h-11/12 w-2/12">
+         <app-quick-actions></app-quick-actions>
+    </div>
+   
+</div>

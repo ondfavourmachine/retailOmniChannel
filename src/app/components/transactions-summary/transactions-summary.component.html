@@ -1,0 +1,295 @@
+<div [style.display]="summaryToShow == 'airtime transactions' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 uppercase"> Abisola Ykubu  </h5> 
+            <span class="transactions_figure font-semibold text-ro-bgBlue-1">Airtime Payment Summary</span>
+          </div> 
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="w-full h-auto px-10  py-3 bg-ro-dashboardSection-color">
+        <div class="w-full content bg-white rounded-md">
+            <div class="title_of_information px-7 py-2 border-b-2 border-b-stone-300">
+                Electricity Bill Summary
+            </div>
+            <div class="w-full informationDetails">
+                <div class="unit_detail ">
+                    <h6>Account Name</h6>
+                    <p class="">Abisola Yakubu</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Account Number</h6>
+                    <p>1010399934</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Bills Category</h6>
+                    <p>Electricity</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Account Name</h6>
+                    <p class="">Abisola Yakubu</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Account Number</h6>
+                    <p>1010399934</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Bills Category</h6>
+                    <p>Electricity</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Account Name</h6>
+                    <p class="">Abisola Yakubu</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Account Number</h6>
+                    <p>1010399934</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Bills Category</h6>
+                    <p>Electricity</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <div  class="w-full h-auto">
+      <div class="w-full flex justify-center items-center h-[13vh]">
+        <button type="button" class="bg-ro-border-red text-white rounded-md px-5 py-3 border-0 border-red-500 hover:bg-red-300">
+            Go back
+        </button>
+      </div>
+    </div>
+ </div>
+
+ <div [style.display]="summaryToShow == 'bills transactions' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 uppercase"> {{ billsInfoToDisplay?.accountname }}  </h5> 
+            <span class="transactions_figure font-semibold text-ro-bgBlue-1">Bills Payment Summary</span>
+          </div> 
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="informationDisplay">
+        <div class="w-full content bg-white rounded-md">
+            <div class="title_of_information px-7 py-2 border-b-2 border-b-stone-300">
+                {{ billsInfoToDisplay?.category }} Bill Summary
+            </div>
+            <div class="w-full informationDetails">
+                <div class="unit_detail ">
+                    <h6>Account Name</h6>
+                    <p class=""> {{ billsInfoToDisplay?.accountname }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Account Number</h6>
+                    <p>{{ billsInfoToDisplay?.accountnumber }}</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Bills Category</h6>
+                    <p>{{ billsInfoToDisplay?.category }}</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Smart Card Number</h6>
+                    <p class="">{{ billsInfoToDisplay?.reference_number }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Amount</h6>
+                    <p>N {{ utils.formatNumber(billsInfoToDisplay?.amount )}} </p>
+                </div>
+                <div class="unit_detail ">
+                    <h6>Status</h6>
+                    <p [ngClass]="{'text-ro-green': billsInfoToDisplay?.response_message == 'successful', 'text-ro-border-red': billsInfoToDisplay?.response_message != 'successful'}"  class=""> {{ billsInfoToDisplay?.response_message }}</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Subscription Period</h6>
+                    <p  class=""> N/A </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Phone number</h6>
+                    <p>{{ billsInfoToDisplay?.customerphone }}</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Email Address</h6>
+                    <p class="w-full break-words">{{ billsInfoToDisplay?.customeremail }}</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <div  class="w-full h-auto">
+      <div class="w-full flex justify-center items-center h-[13vh]">
+        <button type="button" class="">
+            Go back
+        </button>
+      </div>
+    </div>
+ </div>
+
+ <div [style.display]="summaryToShow == 'mobile' || summaryToShow == 'ussdpay' || summaryToShow == 'ibank' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 uppercase"> {{ mobileUSSDRIBInfoToDisplay?.sourceaccountname }}  </h5> 
+            <span class="transactions_figure font-semibold text-ro-bgBlue-1">Transaction Summary</span>
+          </div> 
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="informationDisplay ">
+        <div class="w-full content bg-white rounded-md">
+            <div class="title_of_information px-7 py-2 border-b-2 border-b-stone-300">
+               Summary of the transaction
+            </div>
+            <div class="w-full informationDetails">
+                <div class="unit_detail ">
+                    <h6>Source Account</h6>
+                    <p class=""> {{ mobileUSSDRIBInfoToDisplay?.sourceaccount }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Account Name</h6>
+                    <p>{{ mobileUSSDRIBInfoToDisplay?.sourceaccountname }}</p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Customer ID</h6>
+                    <p>N/A</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Destination</h6>
+                    <p class="">{{ mobileUSSDRIBInfoToDisplay?.destinationaccount }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Destination Name</h6>
+                    <p>N {{ mobileUSSDRIBInfoToDisplay?.destinationaccountname }} </p>
+                </div>
+                <div class="unit_detail ">
+                    <h6>Transaction Status</h6>
+                    <p [ngClass]="{'text-ro-green': mobileUSSDRIBInfoToDisplay?.errormessage == 'successful', 'text-ro-border-red': mobileUSSDRIBInfoToDisplay?.errormessage != 'successful'}"  class=""> {{ mobileUSSDRIBInfoToDisplay?.errormessage  || 'N/A'}}</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Amount Sent</h6>
+                    <p class="">N {{ utils.formatNumber(mobileUSSDRIBInfoToDisplay?.amount) }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Date Created</h6>
+                    <p>N {{ mobileUSSDRIBInfoToDisplay?.datecreated | date:'longDate'}} </p>
+                </div>
+                <div class="unit_detail ">
+                    <h6>Destination Bank</h6>
+                    <p   class=""> {{ mobileUSSDRIBInfoToDisplay?.bankname }}</p>
+                </div>
+            </div>
+            <div class="w-full py-3 flex justify-between gap-20 px-7">
+                <div class="unit_detail">
+                    <h6>Credit Status</h6>
+                    <p class=""> N/A </p>
+                </div>
+                <div class="unit_detail flex-auto ml-9">
+                    <h6 >Narration</h6>
+                    <p class="w-full break-words">{{ mobileUSSDRIBInfoToDisplay?.errormessage || 'N/A' }}</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <div  class="w-full h-auto">
+      <div class="w-full flex justify-center items-center h-[13vh]">
+        <button mat-dialog-close type="button" class="">
+            Go back
+        </button>
+      </div>
+    </div>
+ </div>
+
+ <div [style.display]="summaryToShow == 'nip transactions' ? 'block': 'none'" class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-10">
+            <h5  class="ml-3 mr-2 uppercase"> {{ nipTransactions?.sourceaccountname }}  </h5> 
+            <span class="transactions_figure font-semibold text-ro-bgBlue-1">Transaction Summary</span>
+          </div> 
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+    <div class="informationDisplay ">
+        <div class="w-full content bg-white rounded-md">
+            <div class="title_of_information flex justify-between px-7 py-2 border-b-2 border-b-stone-300">
+               <span class="text-ro-genBlueColor-1 font-semibold">Summary of the transaction </span> <span class="inline-block text-ro-genBlueColor-1"><small class="text-stone-400 inline-block">Token ID:</small> {{ nipTransactions?.appcode }} - {{ nipTransactions?.appuser}} </span>
+            </div>
+            <div class="w-full informationDetails">
+                <div class="unit_detail ">
+                    <h6>Account Name</h6>
+                    <p class=""> {{ nipTransactions?.sourceaccountname }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Channel</h6>
+                    <p> N/A </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Source Account</h6>
+                    <p>{{ nipTransactions?.sourceaccount}}</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail ">
+                    <h6>Destination Account</h6>
+                    <p class="">{{ nipTransactions?.destinationaccount }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Destination Name</h6>
+                    <p>N {{ nipTransactions?.destinationaccountname }} </p>
+                </div>
+                <div class="unit_detail ">
+                    <h6>Destination Bank</h6>
+                    <p  class=""> N/A</p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail">
+                    <h6>Phone Number</h6>
+                    <p class=""> N/A </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Email Address</h6>
+                    <p>  N/A </p>
+                </div>
+                <div class="unit_detail ">
+                    <h6>Date Created</h6>
+                    <p   class=""> {{ nipTransactions?.datecreated | date:'longDate'}} </p>
+                </div>
+            </div>
+            <div class="w-full py-3 informationDetails">
+                <div class="unit_detail">
+                    <h6>Amount Sent</h6>
+                    <p class=""> N/A </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Status</h6>
+                    <p [ngClass]="{'text-ro-green': nipTransactions?.errormessage == 'successful', 'text-ro-border-red': nipTransactions?.errormessage != 'successful'}">  {{ nipTransactions?.errormessage }} </p>
+                </div>
+                <div class="unit_detail">
+                    <h6 >Narration</h6>
+                    <p>  {{ nipTransactions?.narration }} </p>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <div  class="w-full h-auto">
+      <div class="w-full flex justify-center items-center h-[13vh]">
+        <button mat-dialog-close type="button" class="">
+            Go back
+        </button>
+      </div>
+    </div>
+ </div>

@@ -1,0 +1,88 @@
+
+
+.general_transactions{
+    & .header{
+        @apply py-1;
+        & h5{
+            font-size: 1.3rem;
+        }
+
+        & .total_transactions{
+            font-size: 1.175rem;
+            font-family: 'Campton Light';
+            @apply text-ro-genBlueColor-1;
+        }
+
+        & .transactions_figure{
+            font-size: 1.25rem;
+            font-family: 'Campton Medium';
+        }
+    }
+
+    &__searching{
+        @apply bg-ro-dashboardSection-color h-auto; 
+
+        & .searchAndDate__body{
+            @apply gap-6;
+        }
+
+       
+    }
+}
+
+
+.body_content.transactions{
+    --color-selected: #036;
+    height: auto;
+    transition: height 200ms ease-in;
+    @apply px-5 bg-ro-dashboardSection-color;
+
+    & .table_information{
+        @apply rounded-lg w-full h-auto max-h-full mb-3 border border-gray-100  pt-1;
+
+        & .table_container {
+         @apply border rounded-lg overflow-hidden border-stone-200;
+        }
+        & table thead tr th{
+            font-family: 'Campton Light';
+            font-size: .8rem;
+            line-height: 1rem;
+            color: var(--color-selected);
+            @apply capitalize font-semibold pl-5 pr-2 py-5 text-left border-b-2 border-gray-400 bg-gray-100 tracking-wide;
+        }
+
+        & table tbody{
+            transition: all 150ms ease-in-out;
+        }
+
+        & table tbody tr.hightened{
+            @apply h-36 pt-2;
+
+            & > *{
+                @apply align-top transition-all;
+            }
+        }
+
+        & table tbody tr td{
+            font-family: 'Campton Book';
+            @apply px-5 py-5 cursor-pointer border-b-[1px] border-gray-300 bg-white text-left text-xs font-medium  transition-all;
+        }
+
+        & .actions{
+            @apply w-full flex justify-around items-center transition-all hover:border hover:border-ro-hoverBlue-1 hover:rounded-sm hover:py-4 cursor-pointer;
+        }
+
+        & .dontDisturbIsFalse_dropdown{
+            box-shadow: 0px 3px 6px #ADADAD40;
+            @apply flex justify-center items-center h-7 w-7  rounded-full;
+        }
+
+        & .showActions{
+            @apply absolute bottom-[1px] w-64 border-x-0 border-b-0 border-t-2 border-t-gray-300 border-dashed h-16 right-5 justify-end items-center;
+
+            & button{
+                @apply transition-all hover:bg-ro-border-red hover:text-white cursor-pointer ml-4 py-2 px-7 rounded-sm border border-ro-border-red text-ro-border-red;
+            }
+        }
+    }
+}

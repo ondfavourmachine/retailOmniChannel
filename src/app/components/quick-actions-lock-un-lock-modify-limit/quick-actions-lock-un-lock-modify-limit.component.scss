@@ -1,0 +1,61 @@
+.general_transactions > *{
+    font-family: 'Campton Book';
+}
+
+.header{
+    @apply py-2
+}
+
+.question_text{
+    font-family: 'Campton Light';
+    font-size: .875rem;
+    @apply  mt-4;
+}
+
+.search{
+    @apply transition-all cursor-pointer hover:py-2 hover:px-4 hover:border-[1px] hover:border-ro-genBlueColor-1 hover:top-8 hover:rounded-[3px] absolute  top-10 right-6 text-ro-genBlueColor-1 text-[1rem] capitalize;
+}
+
+
+.table_information{
+    transition: all 200ms ease;
+    @apply  rounded-lg w-full h-auto max-h-[25vh] mb-3 border border-gray-100 bg-transparent pt-1;
+
+    & .table_container {
+     @apply border rounded-lg bg-white;
+    }
+    & table thead tr th{
+        font-family: 'Campton Light';
+        color: var(--color-selected);
+        font-size: 0.825rem;
+        @apply capitalize font-semibold px-2 py-5 text-left text-ro-genBlueColor-1 border-b-[1px] border-gray-300 tracking-wide;
+    }
+
+    & table tbody{
+        transition: all 150ms ease-in-out;
+    }
+
+    & table tbody tr.hightened{
+        @apply h-36 pt-2;
+
+        & > *{
+            @apply align-top transition-all;
+        }
+    }
+
+    & table tbody tr td{
+        font-family: 'Campton Book';
+        @apply pr-5 pl-[0.8rem] py-5 border-b-[1px] border-gray-300 bg-white text-left text-xs font-medium  transition-all;
+    }
+
+    & .actions{
+        @apply w-full flex justify-around items-center transition-all hover:border hover:border-ro-hoverBlue-1 hover:rounded-sm hover:py-4 cursor-pointer;
+    }
+
+    & .dontDisturbIsFalse_dropdown{
+        box-shadow: 0px 3px 6px #ADADAD40;
+        @apply flex justify-center items-center h-7 w-7  rounded-full;
+    }
+
+    
+}

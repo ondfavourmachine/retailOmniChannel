@@ -3,7 +3,40 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  general_url: 'https://app.globusbank.com/Omni_ChannelBackendApi/api/',
+  auth_login: 'AuthBackend/LoginUser',
+
+  users: {
+    getAllUsers: 'UserManagement/GetAllUsers',
+    getACustomerInformation: 'UserManagement/GetUserDetailbyAccountNumber',
+    getTotalAccs: 'UserManagement/GetTotalAccounts',
+    lockedUsers: 'UserManagement/GetLockedUsers',
+    activeUsers: 'UserManagement/GetUnLockedUsers',
+    lockAProfile: 'UserManagement/LockUserProfile',
+    unlockAProfile: 'UserManagement/InitiateUnlockProfile',
+    searchUserByAcctNumber: 'UserManagement/GetUserDetailbyAccountNumber',
+    searchUsersWithDates: 'UserManagement/SearchUsers'
+  },
+
+  dashboard: {
+   getMobileTransactions: `Application/GetMobileRecords`,
+   getTransactionSummary: `Transaction/GetTransactionsRecords`,
+   getAirtimeAndBills: `Transaction/GetAirtimeBillsCount`,
+   getChannelRecords: `Application/GetChannelRecords`,
+   channelTransactions: `Transaction/GetTransactions`,
+   fullAirtimeList: 'Transaction/GetAirtimeTransactions',
+   billsTransactions: 'Transaction/GetBillsTransactions',
+   searchUserByAcctNumber: 'UserManagement/GetUserDetailbyAccountNumber'
+ },
+
+ transaction: {
+   nipTransactions: 'Transaction/GetNipTransactions',
+   mobileUssdRibTransactions: 'Transaction/GetTransactions',
+   getTransactionLimitsForAllCustomers: 'Transaction/GetUserTransactionLimits'
+ }
+
 };
 
 /*

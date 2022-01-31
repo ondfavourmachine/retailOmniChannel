@@ -1,0 +1,120 @@
+<div class="searchResult_dropdown">
+    <div class="py-4 bg-white px-4 border-b-2 border-stone-300">
+        <div  class="close_dropdown cursor-pointer" (click)="triggerOpenOrClose()">
+            <svg class="h-6 w-6 caret_down" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="expandible_section  overflow-y-hidden overflow-x-hidden">
+        <section class="customer_headingDetails w-full px-3 h-auto bg-[#F5F5F5] py-2">
+            <div class="w-full flex justify-between items-center">
+                <p class="customer_headingDetails__first border-4 border-white rounded-full bg-ro-genBlueColor-1 flex justify-center overflow-hidden items-center w-12 h-12 p-1">
+                    <span *ngIf="!isLoading" class="self-center text-[1.2rem] text-white  bg-transparent">
+                        {{ customerInitials }}
+                    </span>
+                    <ng-container *ngIf="isLoading">
+                        <ngx-skeleton  borderRadius="12px" height="16px" appearance="circle" animation="pulse" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container> 
+                </p>
+    
+                <div class="customer_headingDetails__second  flex-auto flex justify-between gap-2 px-3 items-center ">
+                    <div >
+                       
+                        <h5 class="">Customer Name</h5>
+                        <ng-container *ngIf="isLoading">
+                            <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        </ng-container>
+                        <ng-container *ngIf="!isLoading">
+                            <p class=" text-ro-text-dark">
+                                {{ registeredCustomer?.firstname ? registeredCustomer?.firstname : 'Jane' }}  {{  registeredCustomer?.lastname ? registeredCustomer?.lastname : 'Doe' }}
+                            </p>
+                        </ng-container>
+                    </div>
+                    <div>
+                        <h5>Customer ID</h5>
+                        <ng-container *ngIf="isLoading">
+                            <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        </ng-container>
+                        <ng-container *ngIf="!isLoading">
+                           <p class=" text-ro-text-dark break-words"> {{ searchResults?.customerid }} </p> 
+                        </ng-container>
+                        
+                    </div>
+                    <div >
+                        <h5>Account Number</h5>
+                        <ng-container *ngIf="isLoading">
+                            <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        </ng-container>
+                        <ng-container *ngIf="!isLoading">
+                              <p class=" text-ro-text-dark">{{ searchResults?.primarY_ACCOUNT}}</p>
+                        </ng-container>
+                      
+                    </div>
+                    <div>
+                        <div class="circle_actions cursor-pointer " (click)="increaseHeight($event)">
+                            <div class="dontDisturbIsFalse_dropdown bg-white">
+                                <svg class="h-5 w-5 caret_down" fill="none"  viewBox="0 0 24 24" stroke="#EB2232">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                                </svg> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </section>
+
+
+       <section class="remaining_details h-auto px-4 mt-1 w-full">
+        	<div class="w-full mb-1 grid grid-cols-3 grid-rows-1 gap-4 bg-white h-full border-b-2 border-stone-300 py-3">
+                <div >    
+                    <h5 class="">Email</h5>
+                        <p class=" text-ro-text-dark  text-left w-3/4 break-words">
+                         {{ registeredCustomer?.email || 'N/A' }}
+                       </p>
+                 
+                </div>  
+                <div >    
+                    <h5 class="">Phone Number</h5>
+                        <p class=" text-ro-text-dark whitespace-pre-line text-left">
+                           {{ registeredCustomer?.phone }}
+                       </p>
+                 
+                </div>  
+                <div >    
+                    <h5 class="">Created On</h5>
+                        <p class=" text-ro-text-dark whitespace-pre-line text-left">
+                            {{ registeredCustomer?.createD_ON | date: 'dd-MM-YYYY hh:mm: a'}}
+                       </p>
+                 
+                </div>  
+            </div>
+
+            <div class="w-full grid grid-cols-3 grid-rows-1 gap-4 bg-white h-full py-3">
+                <div >    
+                    <h5 class="">Channel Created</h5>
+                        <p class=" text-ro-text-dark whitespace-pre-line text-left">
+                            mobile 
+                       </p>
+                 
+                </div>  
+                <div >    
+                    <h5 class="">Username</h5>
+                        <p class=" text-ro-text-dark whitespace-pre-line text-left">
+                            {{ registeredCustomer?.username || "N/A" }}
+                       </p>
+                 
+                </div>  
+                <div >    
+                    <h5 class="">Gender</h5>
+                        <p class=" text-ro-text-dark whitespace-pre-line text-left">
+                            {{ registeredCustomer?.gender?.trim() == 'M' ? 'MALE' : 'FEMALE' }}
+                       </p>
+                 
+                </div>  
+            </div>
+       </section>
+
+    </div>
+</div>

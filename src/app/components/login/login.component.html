@@ -1,0 +1,57 @@
+
+<div class="w-screen h-screen flex overflow-hidden">
+    <div class="hidden firstHalf md:flex justify-center items-center md:flex-auto md:w-1/2 h-screen">
+        <div class="h-1/2 w-full ">
+            <div class="pt-8 mb-16">
+                <div class="w-full flex items-center px-10">
+                    <div class="w-2/5 fadeIn">
+                        <img class="object-cover" src="../../../assets/images/globus_logo_whiteText.png" alt="">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="w-full px-10 text-white dropInFromTop">
+                <p class="first_text">Retail</p>
+                <p class="second_text">OmniChannel</p>
+            </div>
+        </div>
+    </div>
+    <div class="secondHalf bgSecondHalf">
+        <div class=" h-auto w-full bg-white border rounded dropInFromRight">
+            <div class="loginCustom loginForm">
+                <h4 class="login-title text-ro-genBlueColor-1">Welcome Back</h4>
+                <span class="text-ro-black-text sub-title">Please enter your credentials to login</span>
+                
+
+               <form [formGroup]="loginForm" action="">
+                <div class="mt-7">
+                    <div class="form-group w-full relative">
+                        <label for="username" class="absolute top-2 left-5 form-labels">Email</label>
+                        <input formControlName="Username" type="email" placeholder="Enter username" 
+                        class="rounded-t-md form-control username w-full h-20">
+                    </div>
+                    <div class="form-group w-full relative">
+                        <label for="password" class="absolute top-2 left-5 form-labels">Password</label>
+                        <input formControlName="Password" [type]="type" placeholder="Enter password" 
+                        class="rounded-b-md form-control password w-full h-20">
+                        <span (click)="changeVisibility()" class="absolute showOrHide top-8 right-5 cursor-pointer">{{showOrHide}}</span>
+                    </div>
+                    <div class="forgot_password w-full text-right my-7">
+                        <span class="text-ro-bgBlue-1 cursor-pointer">Forgot Login Credentials?</span>
+                    </div>
+                </div>
+
+                <div class="form-group w-full relative mb-7">
+                    <label for="token" class="absolute top-2 left-5 form-labels">Token</label>
+                    <input formControlName="Token" type="text" placeholder="Enter token" 
+                    class="rounded form-control token w-full h-20">
+                </div>
+                
+                <button [disabled]="loginForm.invalid" (click)="submitForm(loginForm, $event)" type="button" class="btn-red-custom flex justify-center items-center">
+                    Login
+                </button>
+               </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+button{
+    font-family: 'Campton Light';
+    @apply inline-flex justify-center items-center text-sm py-2 ml-4 mx-1.5  text-white rounded-[4px] bg-ro-genBlueColor-1;
+
+    & span{
+        @apply bg-white relative h-[3px] w-4 mr-[6px] after:absolute after:w-1 after:h-[1px] after:bg-white after:top-[9px] after:left-[5px] before:absolute before:w-[9px] before:h-[2px] before:bg-white before:top-[5px] before:left-[3px]
+    }
+}

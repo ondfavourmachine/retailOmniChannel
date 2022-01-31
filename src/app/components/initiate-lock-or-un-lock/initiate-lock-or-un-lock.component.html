@@ -1,0 +1,96 @@
+<div  [ngClass]="{'hidden': data.typeOfAction == 'initiate Unlock'}" class="lockOrUnlock">  
+    <!-- -->
+    <div class="header">
+        <h5 class="">Lock Profile</h5> 
+        <!-- mat-dialog-close (click)="closeUnlockOrLockProfile('lock')" -->
+        <div mat-dialog-close class=" h-8"> 
+            <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> 
+        </div>
+    </div>
+    <div class="h-auto px-6 py-4">
+        <div class="unlockOrLockDetails">
+            <div class="nameInformation flex gap-8 mb-7">
+                <div class="">
+                    <span class="capitalize title block">username</span>
+                    <span class="capitalize info block">{{ data?.user?.username || 'N/A' }} </span>
+                </div>
+                <div class="">
+                    <span class="capitalize title block">intiated by</span>
+                    <span class="capitalize info block">{{ staff?.displayName }} </span>
+                </div>
+            </div>
+            <div class="reason border-b-2 border-b-stone-300 py-2 mb-10">
+                <label for="reasonForAction" class="capitalize w-full">reason for locking the profile</label>
+                    <textarea [(ngModel)]="reason" name="reason" 
+                        class="w-full p-3 text-gray-800 mt-1 rounded-[5px] focus:border-ro-hoverBlue-1"  
+                        style="height: 100px;" id="reasonForAction">
+                    </textarea>
+            </div>
+
+            <div class="closeActions flex justify-between px-1"> 
+                <a href="javascript:void(0)" class="">go back</a>
+                <button (click)="closeUnlockOrLockProfile('lock', $event)" 
+                class="">
+                  Start Profile Lock 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div  [ngClass]="{'hidden': data.typeOfAction == 'initiate Lock'}" class="lockOrUnlock">
+    <div class="header">
+        <h5 class="">Unlock Profile</h5> 
+        <!-- mat-dialog-close (click)="closeUnlockOrLockProfile('unlock')" -->
+        <div mat-dialog-close  class=" h-8"> 
+            <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> 
+        </div>
+    </div>
+    <div class="h-auto px-6 py-4">
+        <div class="unlockOrLockDetails">
+            <div class="nameInformation flex gap-16 mb-7">
+                <div class="">
+                    <span class="capitalize title block">username</span>
+                    <span class="capitalize info block"> {{ data?.user?.username || 'N/A' }} </span>
+                </div>
+                <div class="">
+                    <span class="capitalize title block">intiated by</span>
+                    <span class="capitalize info block"> {{ staff?.displayName }} </span>
+                </div>
+                <div class="">
+                    <span class="capitalize title block">channel</span>
+                    <span class="capitalize info block">{{ data?.user?.channelcreated || 'N/A' }}</span>
+                </div>
+            </div>
+            <div class="longtext">
+                <span class="capitalize title block">Reasons for locking</span>
+                <span class="info capitalize block" style="font-size: 0.875rem;">
+                   {{ data?.user?.reason || 'No reason stated' }}
+               </span>
+            </div>
+            <hr class="my-1 border-[1px] bg-stone-200 mb-4">
+            <div class="inputs flex gap-5 w-full mb-2">
+                <div class="w-1/2">
+                    <label for="username" class="block capitalize">username</label>
+                    <input [value]="data.user.username || 'N/A'" type="text" disabled class="rounded-[4px] w-full" id="username">
+                </div>
+
+                <div class="w-1/2">
+                    <label for="username" class="block capitalize">initiated by</label>
+                    <input [value]="staff?.displayName" type="text" disabled class="rounded-[4px] w-full" id="username">
+                </div>
+            </div>
+            <div class="reason border-b-2 border-b-stone-300 py-2 mb-10">
+                <label for="reasonForAction" class="capitalize w-full">reason for unlocking the profile</label>
+                <textarea [(ngModel)]="reason" class="w-full p-3 text-gray-800 mt-1 rounded-[5px] focus:border-ro-hoverBlue-1"  style="height: 100px;" id="reasonForAction"></textarea>
+            </div>
+
+            <div class="closeActions flex justify-between px-1"> 
+                <a href="javascript:void(0)" class="">go back</a>
+                <button (click)="closeUnlockOrLockProfile('unlock', $event)" class=""> start Profile unlock </button>
+
+            </div>
+        </div>
+    </div>
+</div>

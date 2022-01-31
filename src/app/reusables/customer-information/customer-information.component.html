@@ -1,0 +1,233 @@
+
+<div class="customer_profile_info">
+   <div class="header">
+         <h5 class="">Customer Profile</h5> <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+   </div>
+
+   <section class="customer_headingDetails w-full px-6 h-auto bg-ro-dashboardSection-color py-5 ">
+        <div class="w-full flex justify-between items-center mb-4">
+            <p class="customer_headingDetails__first border-4 border-white  mr-4 rounded-full bg-ro-genBlueColor-1 flex justify-center overflow-hidden items-center w-16 h-16 p-1 ">
+                <span class="self-center text-[1.5rem] text-white  bg-transparent">
+                    SA
+                </span>
+            </p>
+
+            <div class="customer_headingDetails__second ">
+                <div >
+                    <h5 class="">Customer Name</h5>
+                    <p *ngIf="data?.reg?.firstname; else noName" class=" text-ro-text-dark">
+                        {{ data?.reg?.firstname + ' ' + data?.reg?.lastname }} 
+                    </p>
+                    <ng-template #noName>
+                        <p  class=" text-ro-text-dark">
+                            N/A
+                        </p>
+                    </ng-template>
+                </div>
+                <div>
+                    <h5>Customer ID</h5>
+                    <p *ngIf="data?.reg?.customerid; else noID" class=" text-ro-text-dark">{{ data?.reg?.customerid }}</p>
+                    <ng-template #noID>
+                        <p  class=" text-ro-text-dark">
+                            N/A
+                        </p>
+                    </ng-template>
+                </div>
+                <div >
+                    <h5>Account Number</h5>
+                    <p class=" text-ro-text-dark">2000492702</p>
+                </div>
+                <div>
+                    <h5>Status</h5>
+                    <p [ngClass]="{'text-ro-green': data.currentStatus == 'Account Active', 'text-ro-border-red': data.currentStatus != 'Account Active' }" > {{ data?.currentStatus }} </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lower_box w-full h-auto bg-white pt-3 pb-4 rounded-[3px] mb-3">
+            <h5 class=" text-ro-genBlueColor-1 font-medium mb-2 px-4">Actions</h5>
+            <div class="flex justify-start items-center gap-3 px-4">
+                <button *ngIf="data.currentStatus == 'Account Active'" (click)="intiateLockOrUnLock()" class="intiateOrInlock">Initiate Lock</button>
+                <button *ngIf="data.currentStatus != 'Account Active'" (click)="intiateLockOrUnLock()" class="intiateOrInlock">Initiate UnLock</button>
+                <button *ngIf="data.currentStatus != 'Account Active'" class="unAuthorized">Approve Unlock</button>
+                <button *ngIf="data.currentStatus == 'Account Active'" class="unAuthorized">Approve lock</button>
+                <button (click)="updateLimit()" class="intiateOrInlock">Update Limit</button>
+            </div>
+        </div>
+   </section>
+
+    <section class="customer_full-details">
+        <div class="customer_full-details__contents mb-3">
+            <h5 class="border-b-2 border-b-stone-300">User Details</h5>
+            <div class="customer_full-details__userDetails user_info">
+                <div class="individual_details w-full">
+                    <h5>Username</h5>
+                    <p>{{ data?.username || 'N/A' }}</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Account Balance</h5>
+                    <p> N/A </p>
+                </div>
+                <div class="individual_details">
+                    <h5>Phone Number</h5>
+                    <p>{{ data?.reg?.phone }}</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails">
+                <div class="individual_details w-full">
+                    <h5>Primary Account</h5>
+                    <p>{{ data?.primarY_ACCOUNT }}</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Created On</h5>
+                    <p> {{ data?.createD_ON | date: 'mediumDate' }} </p>
+                </div>
+                <div class="individual_details">
+                    <h5>Channel Blocked</h5>
+                    <p>N/A</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Last Login</h5>
+                    <p> N/A </p>
+                </div>
+                <div class="individual_details">
+                    <h5>Last Login time</h5>
+                    <p>N/A </p>
+                </div>
+                <div class="individual_details">
+                    <h5>Internet Banking</h5>
+                    <p>{{ data?.interneT_BANKING || "N/A"}}</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Mobile Banking</h5>
+                    <p>{{ utils.formatNumber(data?.mobilE_BANKING) }}</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Social Media</h5>
+                    <p> {{ data?.socialmedia || 'N/A'}} </p>
+                </div>
+                <div class="individual_details">
+                    <h5>Error Count</h5>
+                    <p>{{ data?.erroR_COUNT || 0}}</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Change Password</h5>
+                    <p>{{ data?.changE_PASSWORD || 'N/A'}}</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Has Biz</h5>
+                    <p> {{ data?.hasBiz}}</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Email</h5>
+                    <p> {{ data?.email }} </p>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="data.userLogs.length > 0" class="customer_full-details__contents user_logs mb-3">
+            <h5 class="border-b-2 border-b-stone-300">User Logs</h5>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Username</h5>
+                    <p>bisodeeq</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Account Balance</h5>
+                    <p>200,000</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Phone Number</h5>
+                    <p>08146823643</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Primary</h5>
+                    <p>bisodeeq</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Created On</h5>
+                    <p>200,000</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Channel Blocked</h5>
+                    <p>08146823643</p>
+                </div>
+            </div>
+            <div class="customer_full-details__userDetails ">
+                <div class="individual_details w-full">
+                    <h5>Last Login</h5>
+                    <p>bisodeeq</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Last Login time</h5>
+                    <p>200,000</p>
+                </div>
+                <div class="individual_details">
+                    <h5>Internet Banking</h5>
+                    <p>08146823643</p>
+                </div>
+            </div>
+           
+        </div>
+
+        <div class="customer_full-details__contents accOpenings">
+            <h5 class="border-b-2 border-b-stone-300">Account Opening Documents</h5>
+             <div class="customer_full-details__userDetails">
+                <div class="individual_details w-full flex">
+                    <span class="capitalize inline-flex justify-start items-center w-64">
+                        <img  class="max-w-[25px] w-[20px]" src="../../../assets/images/utility_bills.svg" alt=""> 
+                        <small class="pl-6">Utility Bills </small> 
+                    </span>
+                    <p class="flex-auto self-center">N/A</p>
+                </div>      
+             </div> 
+            <div class="customer_full-details__userDetails">
+                <div class="individual_details flex">
+                    <span class="capitalize inline-flex justify-start items-center w-64 ">
+                        <img  class="max-w-[25px] w-[20px]" src="../../../assets/images/user_icon_blue.svg" alt="">  
+                        <small class="pl-6"> Identification Type</small>
+                    </span>
+                    <p class="flex-auto self-center">N/A</p>
+                </div>
+            </div>
+
+             <div class="customer_full-details__userDetails">
+                <div class="individual_details flex">
+                    <span class="capitalize inline-flex justify-start items-center w-64">
+                        <img  class="max-w-[25px] w-[20px]" src="../../../assets/images/boxed_user_icon.svg" alt="">
+                        <small class="pl-6"> Customer Photo</small>
+                    </span>
+                    <p class="flex-auto self-center">N/A</p>
+                </div>     
+            </div>
+            <div class="customer_full-details__userDetails">
+                <div class="individual_details flex">
+                    <span class="capitalize inline-flex justify-start items-center w-64">
+                        <img  class="max-w-[25px] w-[23px]" src="../../../assets/images/writing_icon.svg" alt=""> 
+                        <small class="pl-6">Customer Signature</small>
+                     </span>
+                    <p class="flex-auto self-center">N/A</p>
+                </div>  
+            </div>
+
+            <div class="customer_full-details__userDetails">
+                <div class="individual_details flex">
+                    <span class="capitalize inline-flex justify-start items-center w-64">
+                        <img  class="max-w-[25px] w-[23px]" src="../../../assets/images/customer_reference.svg" alt="">
+                        <small class="pl-6">Customer Reference</small>
+                    </span>
+                    <p class="flex-auto self-center">N/A</p>
+                </div>  
+            </div>    
+        </div>
+
+    </section>
+</div>

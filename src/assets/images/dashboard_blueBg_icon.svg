@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="175" height="37" viewBox="0 0 175 37">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="3.865" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#075db2"/>
+      <stop offset="1" stop-color="#036"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_6550" data-name="Group 6550" transform="translate(-28 -145)">
+    <!-- <text id="Dashboard" transform="translate(82 153)" fill="#f4f5fa" font-size="18" font-family="Campton-SemiBold, Campton" font-weight="600" letter-spacing="0.048em"><tspan x="0" y="18">Dashboard</tspan></text> -->
+    <g id="Group_6341" data-name="Group 6341" transform="translate(-6418 19940)">
+      <rect id="Rectangle_2117" data-name="Rectangle 2117" width="37" height="37" rx="5" transform="translate(6446 -19795)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="noun_dashboard_2801498" transform="translate(34.775 151.275)">
+      <g id="Group_6551" data-name="Group 6551">
+        <path id="Path_75444" data-name="Path 75444" d="M11.86,9.4H2.822A.822.822,0,0,1,2,8.573V2.822A.822.822,0,0,1,2.822,2H11.86a.822.822,0,0,1,.822.822V8.573A.822.822,0,0,1,11.86,9.4ZM3.643,7.752h7.4V3.643h-7.4Z" transform="translate(-2 -2)" fill="#fff"/>
+        <path id="Path_75445" data-name="Path 75445" d="M11.86,26.968H2.822A.822.822,0,0,1,2,26.147V13.822A.822.822,0,0,1,2.822,13H11.86a.822.822,0,0,1,.822.822V26.147A.822.822,0,0,1,11.86,26.968ZM3.643,25.325h7.4V14.643h-7.4Z" transform="translate(-2 -3.962)" fill="#fff"/>
+        <path id="Path_75446" data-name="Path 75446" d="M26.86,28.4H17.822A.822.822,0,0,1,17,27.573V21.822A.822.822,0,0,1,17.822,21H26.86a.822.822,0,0,1,.822.822v5.752A.822.822,0,0,1,26.86,28.4Zm-8.217-1.643h7.4V22.643h-7.4Z" transform="translate(-4.675 -5.388)" fill="#fff"/>
+        <path id="Path_75447" data-name="Path 75447" d="M26.86,15.968H17.822A.822.822,0,0,1,17,15.147V2.822A.822.822,0,0,1,17.822,2H26.86a.822.822,0,0,1,.822.822V15.147A.822.822,0,0,1,26.86,15.968Zm-8.217-1.643h7.4V3.643h-7.4Z" transform="translate(-4.675 -2)" fill="#fff"/>
+        <rect id="Rectangle_2194" data-name="Rectangle 2194" width="9" height="6" transform="translate(1.225 0.725)" fill="#fff"/>
+        <rect id="Rectangle_2195" data-name="Rectangle 2195" width="9" height="13" transform="translate(1.225 9.725)" fill="#fff"/>
+        <rect id="Rectangle_2196" data-name="Rectangle 2196" width="9" height="5" transform="translate(13.225 16.725)" fill="#fff"/>
+        <rect id="Rectangle_2197" data-name="Rectangle 2197" width="9" height="13" transform="translate(13.225 0.725)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

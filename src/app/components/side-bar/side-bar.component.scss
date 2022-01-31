@@ -1,0 +1,20 @@
+
+.sideBar_Half__parent{
+  
+
+    & .listParent{
+        & li{
+            font-family: 'Campton Light';
+            transition: all 500ms ease-in-out;
+            cursor: pointer;
+    
+            &:hover, &.activated{
+                font-family: "Campton Semi Bold";
+                background-color: #003366;
+                border-top-right-radius: .75rem;
+                border-bottom-right-radius: .7rem;
+                
+            }
+        } 
+    }
+}

@@ -1,0 +1,549 @@
+
+<div class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-16">
+            <h5 [style.display]="tableType != 'Mobile Accts' ? 'block': 'none'" class="ml-3 mr-2 uppercase">{{channelType}} </h5> 
+            <h5 [style.display]="tableType  == 'Mobile Accts' ? 'block': 'none'" class="ml-3 mr-2 uppercase"> Mobile Banking Accounts </h5> 
+            <span [style.display]="tableType != 'Mobile Accts' ? 'block': 'none'" class="total_transactions self-center font-medium mr-4"> 
+              {{ (utils.formatNumber(totalTransactions) + " transactions")+":" }} 
+            </span> 
+            <!-- <span  class="total_transactions self-center font-medium mr-4"> 
+              {{ (utils.formatNumber(totalTransactions) + " transactions")+":" }} 
+            </span>  -->
+            <span [style.display]="tableType != 'Mobile Accts' ? 'block': 'none'" class="transactions_figure font-semibold text-ro-border-red">N {{ utils.formatNumber(data.totalMoney) }}</span>
+            <span [style.display]="tableType == 'Mobile Accts' ? 'block': 'none'" class="transactions_figure font-semibold text-ro-border-red">
+                {{ utils.formatNumber(data.totalMoney) }} 
+              </span>
+          </div> 
+          <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+    </div>
+
+   
+
+    <div class="general_transactions__searching body_content">
+        <section class="searchAndDate w-[82%]">
+            <div class="searchAndDate__body ">
+            <div class="filter px-4 py-3">
+                <app-retailomni-input></app-retailomni-input>
+            </div>
+            <div class="search px-6 py-2">
+                <app-retailomni-date-range [information]="info"></app-retailomni-date-range>
+            </div>    
+        </div>
+        </section>
+       
+    </div>
+
+     <div  class="body_content transactions w-full max-w-full">
+       <!-- Table for Mobile, RIB, USSD and Bills Transactions -->
+        <section [style.display]="tableType == 'MRUB' ? 'block': 'none'" class="table_information">
+            <div class="table_container ">
+                 <table class="table-auto w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th  class="">Account name</th>
+                    <th  class="">Channel </th>
+                    <th class="">Source Account</th>
+    
+                    <th  class="">Destination Account</th>
+                    <th  class="">Amount</th>
+                    <th  class="">Date Created</th>
+
+                    <th  class="">Status</th>
+                    <th  class="" style="padding-right: 1rem; padding-left: 1rem">View</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                
+                    <tr  *ngIf="isLoading">
+                        <td  class="">   
+                            <ng-container >
+                                <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+      
+                        </td>
+                        <td class=""> 
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                          
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                        
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                          
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                         
+                        </td>
+                        <td class="" style="width: 20%;"> 
+                        
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                           
+                        </td>
+                        <td class="relative" style="padding-left: 2px;">
+                           
+    
+                                <i class="fa fa-eye"></i>
+       
+                        </td>
+                      </tr>
+
+                  <tr   *ngFor="let trans of ussdIbankAndMobileTransactions; index as i">
+                    <td  class="">   
+                            {{ trans?.sourceaccountname }}
+                    </td>
+                    <td class=""> 
+                       {{ channelType }}
+                      
+                    </td>
+                    <td class=""> 
+                            {{ trans?.sourceaccount }}  
+                    </td>
+                    <td class="">
+                       
+                      {{ trans?.destinationaccount }}   
+                      
+                    </td>
+                    <td class="">
+                       
+                      {{ trans?.amount }}   
+                      
+                    </td>
+                    <td class="">
+                       
+                      {{ trans?.datecreated | date:'longDate' }}  
+                     
+                    </td>
+                   
+                    <td class="" style="width: 20%;"> 
+                            <div  [ngClass]="{'text-ro-green': trans.errormessage == null, 'text-ro-border-red': trans.errormessage != null }">
+                                {{ trans?.errormessage == null ? "Successfull" : trans?.errormessage }}   
+                            </div>
+                          
+                    
+                    </td>
+                    <td class="relative ">
+                            <i style="font-size: 1.275rem;" class="fa fa-eye text-ro-genBlueColor-1"></i>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+           
+        </section>
+
+        <!-- Table for Airtime transactions -->
+        <section [style.display]="tableType == 'Airtime' ? 'block': 'none'" class="table_information">
+          <div class="table_container ">
+               <table class="table-auto w-full leading-normal">
+              <thead>
+                <tr>
+                  <th  class="">Source Account</th>
+                  <th  class="">Receiver </th>
+                  <th class="">Amount</th>
+  
+                  <th  class="">Network</th>
+                  
+                  <th  class="">Date Created</th>
+                  <th  class="">Transaction Reference</th>
+
+                  <th  class="">Api Response</th>
+                  <th  class="" style="padding-right: 1rem; padding-left: 1rem">Channel</th>  
+                </tr>
+              </thead>
+              <tbody>
+              
+                  <tr  *ngIf="isLoading">
+                      <td  class="">   
+                          <ng-container >
+                              <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+    
+                      </td>
+                      <td class=""> 
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                        
+                      </td>
+                      <td class="">
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                      </td>
+                      <td class="">
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                      
+                      </td>
+                      <td class="">
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                        
+                      </td>
+                      <td class="">
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                       
+                      </td>
+                      <td class="" style="width: 20%;"> 
+                      
+                          <ng-container >
+                              <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                            </ng-container>
+  
+                         
+                      </td>
+                      <td class="relative" style="padding-left: 2px;">
+                         
+  
+                              <i class="fa fa-eye"></i>
+     
+                      </td>
+                    </tr>
+
+                <tr   *ngFor="let trans of airtimeTransactions; index as i">  
+                  <td  class="">   
+                          {{ trans?.accountnumber }}
+                  </td>
+                  <td class=""> 
+                     {{ trans?.receiver }}
+                    
+                  </td>
+                  <td class=""> 
+                          {{ trans?.amount }}  
+                  </td>
+                  <td class="">
+                     
+                    {{ trans?.network }}   
+                    
+                  </td>
+                  <td class="">
+                     
+                    {{ trans?.date_added  | date:"longDate"}}   
+                    
+                  </td>
+                  <td class="">
+                     
+                    {{ trans?.uniqueref  }}  
+                   
+                  </td>
+                 
+                  <td class=""> 
+                          <div  [ngClass]="{'text-ro-green': trans.responsemessage == 'successful', 'text-ro-border-red': trans.responsemessage != 'successfull' }">
+                              {{ trans?.responsemessage }}   
+                          </div>
+                        
+                  
+                  </td>
+                  <td class="relative ">
+                        {{trans?.modulename == 'iba' ? 'Internet Banking': 'Mobile'}}
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+         
+       </section>
+
+       <!-- Table for Bills -->
+       <section [style.display]="tableType == 'Bills' ? 'block': 'none'" class="table_information">
+        <div class="table_container ">
+             <table class="table-auto w-full leading-normal">
+            <thead>
+              <tr>
+                <th  class="">Account name</th>
+                <th  class="">Account Number </th>
+                <th class="">Bills Category</th>
+
+                <th  class="">Serial Number</th>
+                
+                <th  class="">Amount</th>
+                <th  class="">Period</th>
+
+                <th  class="">Status</th>
+                <th  class="" style="padding-right: 1rem; padding-left: 1rem">View</th>  
+              </tr>
+            </thead>
+            <tbody>
+            
+                <tr  *ngIf="isLoading">
+                    <td  class="">   
+                        <ng-container >
+                            <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+  
+                    </td>
+                    <td class=""> 
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                      
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                    
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                      
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                     
+                    </td>
+                    <td class="" style="width: 20%;"> 
+                    
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                       
+                    </td>
+                    
+                  </tr>
+                      
+
+              <tr   *ngFor="let trans of billsTransactionsList; index as i">  
+                <td  class="">   
+                        {{ trans?.accountname }}
+                </td>
+                <td class=""> 
+                   {{ trans?.accountnumber }}
+                  
+                </td>
+                <td class=""> 
+                        {{ trans?.category }}  
+                </td>
+                <td class="">
+                   
+                  {{ trans?.reference_number }}   
+                  
+                </td>
+                <td class="">
+                   
+                  {{ trans?.amount}}   
+                  
+                </td>
+                <td class="">
+                   
+                  {{ (trans?.created_on | date:"mediumDate") + '-' + ' N/A'  }}  
+                 
+                </td>
+               
+                <td class="" style="width: 9.2rem; max-width: 9.5rem;  white-space: nowrap; overflow: hidden;"> 
+                        <div  [ngClass]="{'text-ro-green': trans.response_message == 'successful', 'text-ro-border-red': trans.response_message != 'successfull' }">
+                            {{ trans?.response_message }}   
+                        </div>
+                      
+                
+                </td>
+                <td class="relative ">
+                    <i style="font-size: 1.275rem;" class="fa fa-eye text-ro-genBlueColor-1"></i>
+                </td>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+       
+       </section>
+
+       <!-- Table for Mobile Accts -->
+       <section [style.display]="tableType == 'Mobile Accts' ? 'block': 'none'" class="table_information">
+        <div class="table_container ">
+             <table class="table-auto w-full leading-normal">
+            <thead>
+              <tr>
+                <th  class="">Account Number</th>
+                <th  class="">Customer ID </th>
+                <th class="">User Name</th>
+
+                <th  class="">Acc. Balance</th>
+                
+                <th  class="">Date Created</th>
+                <th  class="">Status</th>
+
+                <th  class="">Error Count</th>
+                <th  class="" style="padding-right: 1rem; padding-left: 1rem">Actions</th>  
+              </tr>
+            </thead>
+            <tbody>
+            
+                <tr  *ngIf="isLoading">
+                    <td  class="">   
+                        <ng-container >
+                            <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+  
+                    </td>
+                    <td class=""> 
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                      
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                    
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                      
+                    </td>
+                    <td class="">
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                     
+                    </td>
+                    <td class="" style="width: 20%;"> 
+                    
+                        <ng-container >
+                            <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                          </ng-container>
+
+                       
+                    </td>
+                    <td class="" style="width: 20%;"> 
+                    
+                      <ng-container >
+                          <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        </ng-container>
+
+                     
+                  </td>
+                    
+                  </tr>
+                      
+
+              <tr  *ngFor="let acct of mobileAccounts; index as i">  
+                <td  class="">   
+                        {{ acct?.accountnumber }}
+                </td>
+                <td class=""> 
+                   {{ acct?.customerid }}
+                  
+                </td>
+                <td class=""> 
+                        {{ acct?.username || 'N/A'}}  
+                </td>
+                <td class="">
+                   
+                  {{ acct?.accountbal }}   
+                  
+                </td>
+                <td class="">
+                   
+                  {{ acct?.createdon | date:'mediumDate'}}   
+                  
+                </td>
+                <td class=""
+                 [ngClass]="{'text-ro-border-red': acct.status == 'Profile Locked', 'text-ro-green': acct.status != 'Profile Locked'}">
+                   
+                  {{ acct?.status }}  
+                 
+                </td>
+               
+                <td class="" style="width: 9.2rem; max-width: 9.5rem;  white-space: nowrap; overflow: hidden;"> 
+                        
+                      {{ acct?.errorcount}}
+                
+                </td>
+                <td class="relative" style="padding-left: 2px;">
+                 
+                      <div class="circle_actions cursor-pointer" (click)="showActions($event,acct)">
+                          <div class="dontDisturbIsFalse_dropdown ">
+                              <svg class="h-5 w-5 caret_down" fill="none"  viewBox="0 0 24 24" stroke="#EB2232">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                              </svg> 
+                          </div>
+                      </div>
+<!-- [style.display]="user.showActions ? 'flex':'none'"  -->
+<!-- (click)="showCustomerInfoModal($event, user)" -->
+                  <div 
+                  [style.display]="acct.showActions ? 'flex':'none'"
+                  
+                   class="showActions">
+                      Actions: <button (click) ="openCustomerDetailsInfoModal($event, acct)" class="">View Profile</button>
+                  </div>
+                
+              </td>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+       
+       </section>
+     </div>
+
+    
+ 
+  
+ </div>
+ 

@@ -1,0 +1,162 @@
+
+<div class="general_transactions ">
+    <div class="header">
+          <div class="flex w-full self-center items-center h-16">
+            <h5  class="ml-3 mr-2 capitalize">Update Transaction Limit </h5> 
+          </div> 
+          <div mat-dialog-close class="cursor-pointer h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
+       </div>
+
+            <div class="general_transactions__searching body_content">
+                <section class="searchAndDate w-full">
+                    <div class="searchAndDate__body ">
+                    <div class="filter px-4 py-3">
+                        <app-retailomni-input></app-retailomni-input>
+                    </div>
+                    <div class="search px-6 py-2">
+                        <app-retailomni-date-range [information]="info"></app-retailomni-date-range>
+                    </div>    
+                </div>
+                </section>
+            
+            </div>
+
+     <div  class="body_content transactions w-full max-w-full">
+       <!-- Table -->
+        <section  class="table_information">
+            <div class="table_container ">
+                 <table class="table-auto w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th  class="">Username</th>
+                    <th  class="">Account Type </th>
+                    <th class="">Daily Limit(NGN)</th>
+    
+                    <th  class="">Transaction Type</th>
+                    <th  class="">Token Limit(NGN)</th>
+          
+                    <th  class="">Status</th>
+                    <th  class="" style="">Action</th>  
+                  </tr>
+                </thead>
+                <tbody>
+                
+                    <tr  *ngIf="isLoading">
+                        <td  class="">   
+                            <ng-container >
+                                <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+      
+                        </td>
+                        <td class=""> 
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                          
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                        
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                          
+                        </td>
+                        <td class="">
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                         
+                        </td>
+                        <td class="" style="width: 20%;"> 
+                        
+                            <ng-container >
+                                <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                              </ng-container>
+    
+                           
+                        </td>
+                        <td class="relative" style="padding-left: 2px;">
+                           
+    
+                                <i class="fa fa-eye"></i>
+       
+                        </td>
+                      </tr>
+
+                  <tr   *ngFor="let customer of customersForLimitModification; index as i">
+                    <td  class="">   
+                            {{ customer?.username }}
+                    </td>
+                    <td class=""> 
+                        N/A
+                      
+                    </td>
+                    <td class=""> 
+                            {{ utils.formatNumber(customer?.daily_limit) }}  
+                    </td>
+                    <td class="">
+                       
+                      {{ customer?.transactiontype }}   
+                      
+                    </td>
+                    <td class="">
+                       
+                        {{ utils.formatNumber(customer?.token) }}  
+                      
+                    </td>
+                  
+                   
+                    <td class="" style="width: 20%;"> 
+                            <!-- <div  [ngClass]="{'text-ro-green': trans.errormessage == null, 'text-ro-border-red': trans.errormessage != null }">
+                                {{ trans?.status == null ? "Successfull" : trans?.status }}   
+                            </div> -->
+                          
+                         N/A
+                    </td>
+                    <td class="relative ">
+                      <div 
+                       (click)="updateACustomersLimit(customer)"
+                       class="w-full modify_limit_button  transition-all flex justify-between items-center hover:border hover:border-ro-border-red hover:rounded-sm hover:py-2 hover:px-2">
+                        <svg id="noun_Limit_3187478"  width="23.762" height="19.053" viewBox="0 0 32.762 28.053">
+                            <g id="Layer_5" data-name="Layer 5">
+                              <path id="Path_75457" data-name="Path 75457" d="M33.133,5H1.51A.51.51,0,0,0,1,5.51V21.832a.51.51,0,0,0,.51.51H33.133a.51.51,0,0,0,.51-.51V5.51A.51.51,0,0,0,33.133,5Zm-2.02,14.812H3.53V7.53H31.113Z" transform="translate(-1 -5)" fill="#EB2232"/>
+                              <path id="Path_75461" data-name="Path 75461" d="M33.133,47.078h-10.2v-.53a.51.51,0,0,0-.148-.362l-2.04-2.04a.51.51,0,0,0-.724,0l-2.04,2.04a.51.51,0,0,0-.148.362v.53H1.51c-.282,0-.391,1.225-.391,1.506s.109,1.534.391,1.534H17.832v1.53a.51.51,0,0,0,.51.51h4.08a.51.51,0,0,0,.51-.51v-1.53h10.2c.282,0,.629-1.252.629-1.534S33.415,47.078,33.133,47.078ZM21.4,50.628h0Z" transform="translate(-1 -24.105)" fill="#EB2232"/>
+                              <g id="Ellipse_421" data-name="Ellipse 421" transform="translate(12.322 4.671)" fill="none" stroke="#EB2232" stroke-width="2">
+                                <circle cx="4" cy="4" r="4" stroke="none"/>
+                                <circle cx="4" cy="4" r="3" fill="#EB2232"/>
+                              </g>
+                            </g>
+                        </svg>
+                        <span class="text-ro-border-red"> Modify Limit</span>
+                      </div>
+                    </td>
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+           
+        </section>
+
+     </div>
+
+    
+ 
+  
+ </div>
+ 

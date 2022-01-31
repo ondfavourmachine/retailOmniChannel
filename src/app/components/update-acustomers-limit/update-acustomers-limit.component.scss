@@ -1,0 +1,52 @@
+
+
+.lockOrUnlock{
+    & .header{
+       @apply bg-white pt-6;
+    }
+
+
+    & .title{
+        font-family: 'Campton Light';
+        font-size: .8rem;
+        @apply font-medium text-stone-400;
+    }
+
+    & label{
+        font-family: 'Campton Light';
+        font-size: 0.9rem;
+        @apply font-medium text-[#101010];
+    }
+
+    & .info, .longtext:last-child{
+        font-family: 'Campton Medium';
+        font-size: 1rem;
+        @apply font-medium text-ro-genBlueColor-1;
+    }
+
+   
+  
+    & a, button{
+        font-family: 'Campton Medium';
+        font-size: 0.9rem;
+    }
+
+    & button{
+        @apply px-12 py-3 text-white bg-ro-border-red font-semibold capitalize hover:bg-ro-hoverBlue-1;
+    }
+
+    & a{
+        @apply text-ro-border-red py-0 self-end font-semibold border-b-2 border-dashed capitalize border-ro-border-red;
+    }
+}
+
+.inputs {
+
+    & label{
+        @apply text-ro-black-text cursor-pointer;
+    }
+
+    & input{
+         @apply border-[1px] border-ro-read-notification focus:border-2 focus:border-ro-read-notification focus:outline-0 focus:outline-transparent
+    }
+}

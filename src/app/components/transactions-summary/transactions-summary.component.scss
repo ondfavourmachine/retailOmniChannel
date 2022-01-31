@@ -1,0 +1,54 @@
+
+.general_transactions > *{
+    font-family: 'Campton Book';
+}
+
+.header{
+    @apply py-2
+}
+
+.informationDisplay{
+    @apply w-full h-auto px-10 py-6 bg-ro-dashboardSection-color;
+}
+
+
+.informationDetails{
+    @apply grid grid-cols-3 grid-rows-1 border-b-2 border-b-stone-300 px-7 py-5 gap-5;    
+}
+
+.content{
+
+    & .informationDetails:last-child{
+        @apply border-0;
+    }
+}
+
+.unit_detail{
+    @apply text-sm text-stone-400;
+
+    & h6{
+        font-size: .7rem;
+    }
+
+    & p{
+        font-size: 0.875rem;
+        letter-spacing: 0.08ch;
+        @apply font-normal text-[#212121];
+    }
+}
+
+button{
+    font-family: 'Campton Book';
+    border: 1px solid #FF0033;
+    color: white;
+    padding: .7em 1.5em;
+    border-radius: 3px;
+    background-color: #FF0033;
+    cursor: pointer;
+
+    &:focus{
+        border: 1px solid #FF0033;
+        outline: 1px solid red;
+    }
+    
+}

@@ -1,0 +1,93 @@
+
+// .customer_profile_info{
+//     @apply w-full h-full;
+//     & .header{
+//         @apply w-full h-auto py-3 bg-white flex justify-between items-center px-7;
+//         & h5{
+//             font-family: 'Campton Medium';
+//            @apply font-extrabold text-ro-genBlueColor-1;
+//         }
+//     }
+
+
+//    & .customer_headingDetails{
+//        @apply w-full px-6 bg-ro-dashboardSection-color pt-6;
+
+//        & .customer_headingDetails__second{
+//            @apply flex-auto  grid grid-cols-4 grid-rows-1 gap-3 justify-items-center;
+
+//            & h5{
+//                font-family: 'Campton Light';
+//                @apply text-ro-black-text-2 text-xs font-medium;
+//            }
+
+//            & p{
+//                font-family: 'Campton Book';
+//                @apply text-ro-black-text font-semibold text-sm;
+//            }
+//        }
+
+//        & .lower_box{
+//            font-family: 'Campton Medium';
+//            font-size: 0.85rem;
+//            @apply font-medium;
+
+//            & h5{
+//              @apply font-bold;
+//            }
+//        }
+//    }
+
+
+//    & .customer_full-details{
+//        @apply px-6 py-5 bg-white rounded-[4px] bg-[#F3F9FF];
+
+//        &__contents{
+//            @apply bg-white rounded-[5px];
+//             & h5{
+//             font-family: 'Campton Medium';
+//             font-size: .85rem;
+//             @apply font-bold text-ro-genBlueColor-1 py-3 px-5;
+//             }
+//         }
+
+//       &__userDetails{
+//             &:last-child{
+//               @apply border-0;
+//             }
+//             @apply pt-6 grid grid-cols-3 grid-rows-1 rounded-[4px] border-b-2 border-b-stone-300;
+
+//           & .individual_details{
+//                @apply pb-3;
+//                 & h5{
+//                     font-size: 1rem;
+//                     font-family: 'Campton Light';
+//                     @apply text-stone-400 pl-5 font-semibold  pb-1;
+//                 }
+//                 & p{
+//                     font-size: .9rem;
+//                     font-family: 'Campton Medium';
+//                     @apply text-ro-black-text pl-5 text-left font-bold;
+//                 } 
+                
+//                 & span{
+//                     font-size: 1rem;
+//                     font-family: 'Campton Light';
+//                     @apply text-stone-400 pl-5 font-semibold pb-1;
+//                 }
+
+//                 & small{
+//                     font-size: 0.85rem;
+//                     font-family: 'Campton Medium';
+//                     @apply text-ro-genBlueColor-1;
+//                 }
+//           }
+//         }
+
+//       & .accOpenings .customer_full-details__userDetails{
+//           @apply pt-7 rounded-[4px] block;
+      
+//       }
+      
+//    }
+// }

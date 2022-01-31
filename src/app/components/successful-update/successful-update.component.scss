@@ -1,0 +1,18 @@
+
+
+.successfulUpdate{
+    & .header{
+       @apply bg-ro-dashboardSection-color py-4 flex items-center justify-between px-5;
+
+       & h5{
+           font-family: 'Campton Medium';
+           font-size: 1.175rem;
+           @apply font-semibold text-ro-genBlueColor-1;
+       }
+    }
+
+    & .centeredText{
+       font-family: 'Campton Book'; 
+    }
+
+}

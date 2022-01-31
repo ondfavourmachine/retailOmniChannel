@@ -42,6 +42,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ngx-skeleton": "^13.0.0",
     "postcss": "^8.4.5",
     "tailwindcss": "latest",
     "typescript": "~4.5.4"

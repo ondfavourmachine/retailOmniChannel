@@ -1,0 +1,157 @@
+.header_nav{
+    box-shadow: inset 7px 0 9px -7px #82ADD833;
+
+    & .half-one{
+        @apply h-full flex-auto w-8/12 flex items-center px-7 text-white;
+        font-family: 'Campton Medium';
+        color: #003366; 
+    }
+
+    & .notifications_count{
+        @apply w-9 flex justify-around items-center
+    }
+       
+    
+    & .notifications_logout{
+        @apply flex justify-between items-center pl-2 pr-5 h-full flex-initial
+    }
+
+    & .notifications_dropdown{
+        border: 1px solid #e3e3e3;
+        box-shadow: 0 0px 28px #e3e3e3, 0 0px 15px #e3e3e3;
+        position: absolute;
+        z-index: 1;
+        @apply hidden h-[75vh] w-[32vw] bg-white rounded-t-md rounded-b-2xl top-9 right-[-10px] overflow-y-auto;
+    
+        &::before{
+            content: '';
+            z-index: -1;
+            position: absolute;
+            height: 0.9rem;
+            width: 0.9rem;
+            top: -15px;
+            right: .6rem;
+            background-color: #C8C8C8;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+    
+    
+        & .notifications_dropdown__top{
+            @apply flex justify-between items-center px-5 py-1 w-full h-[7vh] bg-[#F5F5F5];
+            
+            & .close_dropdown{
+                @apply w-6 h-6 flex justify-center items-center rounded-full bg-ro-genBlueColor-1;
+                & svg{
+                    width: 18px;
+                    height: 18px;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        
+    
+        & .notifications_dropdown_content{
+            @apply h-[67vh] mx-1 px-3 py-1;
+            & .dontDisturbIsTrue{
+                @apply h-full w-full justify-center items-center;
+    
+            }
+            & .dontDisturb-content{
+               @apply w-full flex flex-col justify-center items-center;
+                & .first_part{
+                    @apply relative flex justify-center items-center w-24 h-24 bg-ro-dashboardSection-color rounded-full;
+    
+                    & .times{
+                      @apply  absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1
+                    }
+                }
+                
+                & .second_part{
+                    @apply mt-4 text-center text-[#1A1A1A];
+    
+                    & strong{
+                        @apply mb-1 block text-black;
+                    }
+    
+                    & .dontDisturbText{
+                        font-family: "Campton Light";
+                        word-break: break-word;
+                        @apply inline-block w-[75%] text-center break-words;
+                    }
+                }
+            }
+    
+    
+        }
+    
+        &.show{
+          @apply block;
+        }
+    
+        & .dontDisturbIsFalse{
+            
+            & .dontDisturbIsFalse_container{
+                transition: height 500ms cubic-bezier(0.68,-0.55,0.27,1.55);
+                @apply w-full h-20 flex justify-between px-5 items-start py-4 border-b-2 border-b-[#e5e5e5];
+            }
+    
+            & .dontDisturbIsFalse_dot{
+                transition: all 1s ease-in-out;
+                @apply h-3 w-3 bg-ro-genBlueColor-1 rounded-full inline-block mt-2;
+            }
+            &  .dontDisturbIsFalse_text{
+                font-family: "Campton Book";
+                font-size: 0.85rem;
+                @apply font-semibold text-ro-genBlueColor-1;
+            }
+    
+            & .dontDisturbIsFalse_dropdown{
+                box-shadow: 0px 3px 6px #ADADAD40;
+                @apply flex justify-center items-center h-7 w-7  rounded-full;
+            }
+    
+            & .dontDisturbIsFalse_time{
+                font-family: 'Campton Light';
+                @apply pl-[2px] w-full text-ro-black-text-2;
+            }
+    
+            & .dontDisturbIsFalse_container.show{
+                @apply h-40;
+            }
+    
+            & .dontDisturbIsFalse_text.read{
+                @apply text-ro-read-notification;
+            }
+    
+            & .dontDisturbIsFalse_dot.read{
+                @apply opacity-0
+            }
+        }
+    }
+
+    & .notifications{
+        @apply flex items-center  font-medium text-ro-genBlueColor-1 w-auto  cursor-pointer;
+        font-family: "Campton Medium";
+    }
+
+    & .user_loggedIn_info span:nth-child(1){
+        font-family: 'Campton Semi Bold';
+        font-size: .9rem;
+        text-transform: capitalize;
+        @apply leading-3 text-ro-genBlueColor-1 mt-[0.5rem];
+    }
+    
+    & .user_loggedIn_info span:nth-child(2){
+        font-family: 'Campton Light';
+        font-size: .75rem;
+        text-transform: capitalize;
+    }
+    
+    & .user_who_loggedIn{
+        @apply flex justify-around items-center px-5
+    }
+    
+    & .user_logged_in_logo{
+        @apply w-8 h-8 flex justify-center items-center rounded-full bg-ro-genBlueColor-1
+    }
+}

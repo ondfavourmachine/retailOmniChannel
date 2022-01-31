@@ -1,0 +1,248 @@
+<div class="body_content">
+    <!-- change the class in the div immediately below from overflow-visible to overflow-y-scroll  -->
+    <div class="flex-auto w-10/12 overflow-y-scroll mb-4 body_content_child">
+      <div class="general overflow-visible">
+          <!-- search date and filter -->
+            <section class="searchAndDate dashboardSearchContainer relative">
+                <div class="searchAndDate__body " style="overflow:visible">
+                    <div class="search px-6 py-2">
+                        <app-retailomni-date-range [information]="info"></app-retailomni-date-range>
+                    </div>
+               
+                    <div class="filter px-4 py-3">
+                        <app-retailomni-input (customChange)="handleEvent($event)"></app-retailomni-input>
+                    </div>
+                </div>
+
+                  <app-display-search-results
+                  (closeSearchDisplay)="informationForSearchComp = $event" 
+                  [searchDetails]="informationForSearchComp"></app-display-search-results>
+                  
+            </section>
+
+      <!-- Accounts -->
+            <section class="accounts mb-4 w-full h-auto bg-ro-dashboardSection-color rounded-xl">
+            <div class="accounts_heading">
+            <div class="part-one flex justify-between items-center">
+            <span class="icon_accounts">
+                <img src="../../../assets/images/individual_icon.svg" alt="">
+            </span> 
+            <span class="accounts_text">Accounts</span>
+            </div>
+            <div class="part-two">
+            <span class="accounts_title">Total Accounts</span>
+            <span class="accounts_figure">1412</span>
+            </div>
+            </div>
+
+            <div class="accounts_information">
+            <div  class="grid grid-cols-4 gap-[1px]">
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Branch Accounts</h3>
+                    <ng-container *ngIf="branchAcctsActiveAcctsInactiveAcctsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span *ngIf="!branchAcctsActiveAcctsInactiveAcctsAreLoading" class="accounts_information__figures">{{ utils.formatNumber( totalNumberOfAccounts )  }}</span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Active Accounts</h3>
+                    <ng-container *ngIf="branchAcctsActiveAcctsInactiveAcctsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+
+                    <span  *ngIf="!branchAcctsActiveAcctsInactiveAcctsAreLoading" class="accounts_information__figures">{{ utils.formatNumber(accountAccounts)  }}</span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Inactive Accounts</h3>
+                    <ng-container *ngIf="branchAcctsActiveAcctsInactiveAcctsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+
+                    <span  *ngIf="!branchAcctsActiveAcctsInactiveAcctsAreLoading" class="accounts_information__figures">{{ utils.formatNumber(totalNumberOfAccounts)  }}</span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Incomplete Documents</h3>
+
+                    <span class="accounts_information__figures">122</span>
+                </div>
+            </div>
+            <div (click)="showInformation('mobile accounts', totalMobileRecords)"  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Mobile Banking Accts</h3>
+                    <ng-container *ngIf="channelRecordsIsLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span *ngIf="!channelRecordsIsLoading" class="accounts_information__figures">{{ utils.formatNumber(totalMobileRecords) }}</span>
+                </div>
+            </div>
+            <div (click)="showInformation('mobile accounts', totalMobileRecords)"   class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Internet Banking Accts</h3>
+                    <ng-container *ngIf="channelRecordsIsLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span *ngIf="!channelRecordsIsLoading" class="accounts_information__figures">{{ utils.formatNumber(totalRibRecords) }}</span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>USSD Accounts</h3>
+                    <ng-container *ngIf="channelRecordsIsLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+
+                    <span *ngIf="!channelRecordsIsLoading" class="accounts_information__figures">{{ utils.formatNumber(totalUssdRecords) }}</span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse noHoverEffect">
+                <div class="accounts_information__itself">
+                    <h3>Branch Accounts</h3>
+                    <ng-container >
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <!-- <span class="accounts_information__figures">70</span> -->
+                </div>
+            </div>
+            <!-- <div>09</div>
+            <div>09</div> -->
+            </div>
+            </div>
+            </section>
+
+      <!-- Transactions -->
+            <section class="transactions w-full h-auto bg-ro-dashboardSection-color rounded-xl">
+            <div class="accounts_heading">
+            <div class="part-one flex justify-between items-center">
+            <span class="icon_accounts">
+                <img src="../../../assets/images/noun_transaction.svg" alt="">
+            </span> 
+            <span class="accounts_text">Transactions</span>
+            </div>
+                <div class="part-two">
+                    <span class="accounts_title">All Transactions</span>
+                    <span class="accounts_figure">112</span>
+                </div>
+            </div>
+
+            <div class="accounts_information">
+            <div  class="grid grid-cols-4 gap-[1px]">
+            <div  (click)="showInformation('mobile', totalSumMobileTransaction)" class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Mobile App Transactions</h3>
+                    <ng-container *ngIf="transactionsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span *ngIf="!transactionsAreLoading" class="accounts_information__figures">
+                        <small class="small_figures">N{{utils.formatNumberIntoMoney(totalSumMobileTransaction)}}</small> 
+                        {{utils.formatNumber(totalMobileAppTransactions)}}
+                    </span>
+                </div>
+            </div>
+            <div  (click)="showInformation('ibank', totalSumRibTransaction)" class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>RIB Transactions</h3>
+                    <ng-container *ngIf="transactionsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span *ngIf="!transactionsAreLoading" class="accounts_information__figures">
+                        <small class="small_figures">N{{utils.formatNumberIntoMoney(totalSumRibTransaction)}}</small> 
+                        {{ utils.formatNumber(totalRibRecordsTransactions) }}
+                    </span>
+                </div>
+            </div>
+            <div (click)="showInformation('ussdpay', totalSumUssdTransaction)"  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>USSD Transactions</h3>
+                    <ng-container *ngIf="transactionsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <span  *ngIf="!transactionsAreLoading" class="accounts_information__figures">
+                        <small class="small_figures">N{{utils.formatNumberIntoMoney(totalSumUssdTransaction)}}</small> 
+                        {{ utils.formatNumber(totalUssdRecordsTransactions) }}
+                    </span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>NQR Transactions</h3>
+                    <ng-container>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>
+                    <!-- <span *ngIf="!transactionsAreLoading"  class="accounts_information__figures"><small class="small_figures">N10,498,000</small> 122</span> -->
+                </div>
+            </div>
+            <div (click)="showInformation('airtime transactions', airtimeSum)"  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Airtime Transactions</h3>
+                    <ng-container *ngIf="transactionsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>  
+                    <span *ngIf="!transactionsAreLoading" class="accounts_information__figures"><small class="small_figures">
+                        N{{utils.formatNumberIntoMoney(airtimeSum)}} </small> {{ utils.formatNumber(airtimeCount)  }}
+                    </span>
+                </div>
+            </div>
+            <div (click)="showInformation('bills transactions', billsSum)"  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Bills Transactions</h3>
+                    <ng-container *ngIf="transactionsAreLoading">
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>  
+                    <span *ngIf="!transactionsAreLoading" class="accounts_information__figures">
+                        <small class="small_figures"> N{{utils.formatNumberIntoMoney(billsSum)}}</small> {{ utils.formatNumber(billsCount) }}
+                    </span>
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Bills Transactions</h3>
+                    <ng-container>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>  
+                    <!-- <span class="accounts_information__figures"><small class="small_figures">N2,118,431</small> 32</span> -->
+                </div>
+            </div>
+            <div  class="accounts_information__innerHouse ">
+                <div class="accounts_information__itself">
+                    <h3>Bills Transactions</h3>
+                    <ng-container>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
+                    </ng-container>  
+                    <!-- <span class="accounts_information__figures"><small class="small_figures">N2,118,431</small> 32</span> -->
+                </div>
+            </div>
+            
+            </div>
+            </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- quick actions -->
+    <div class="quick_actions h-11/12 w-2/12">
+         <app-quick-actions></app-quick-actions>
+    </div>
+   
+</div>

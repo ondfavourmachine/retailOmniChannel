@@ -1,0 +1,120 @@
+<section  class="table_information">
+    <div class="table_container ">
+         <table class="table-auto w-full leading-normal">
+        <thead>
+          <tr>
+            <th data-tooltip="Source Account" class="tooltip">Src. Account</th>
+            <th  class="">Receiver </th>
+            <th class="">Amount</th>
+
+            <th  class="">Network</th>
+            
+            <th  class="">Date</th>
+            <th data-tooltip="Transference Reference"  class="tooltip">Trans. Reference</th>
+
+            <th  class="">Api Response</th>
+            <th  class="" style="padding-right: 1rem; padding-left: 1rem">Channel</th>  
+            <!-- <th  class="" style="padding-right: 1rem; padding-left: 1rem">View</th>   -->
+          </tr>
+        </thead>
+        <tbody>
+        
+            <tr  *ngIf="isLoading">
+                <td  class="">   
+                    <ng-container >
+                        <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                </td>
+                <td class=""> 
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                  
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                  
+                </td>
+                <td class="">
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                 
+                </td>
+                <td class="" style="width: 20%;"> 
+                
+                    <ng-container >
+                        <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                      </ng-container>
+
+                   
+                </td>
+                <td class="relative" style="padding-left: 2px;">
+                   
+
+                        <i class="fa fa-eye"></i>
+
+                </td>
+              </tr>
+
+          <tr   *ngFor="let trans of airtimeTransactions; index as i">  
+            <td  class="">   
+                    {{ trans?.accountnumber }}
+            </td>
+            <td class=""> 
+               {{ trans?.receiver }}
+              
+            </td>
+            <td class=""> 
+                    {{ trans?.amount }}  
+            </td>
+            <td class="">
+               
+              {{ trans?.network }}   
+              
+            </td>
+            <td class="">
+               
+              {{ trans?.date_added  | date:"longDate"}}   
+              
+            </td>
+            <td class="">
+               
+              {{ trans?.uniqueref  }}  
+             
+            </td>
+           
+            <td class=""> 
+                    <div  [ngClass]="{'text-ro-green': trans.responsemessage == 'successful', 'text-ro-border-red': trans.responsemessage != 'successfull' }">
+                        {{ trans?.responsemessage }}   
+                    </div>
+            </td>
+            <td class="relative ">
+                  {{trans?.modulename == 'iba' ? 'Internet Banking': 'Mobile'}}
+            </td>
+          
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   
+ </section>
