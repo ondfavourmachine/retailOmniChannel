@@ -1,0 +1,118 @@
+<section class="w-full flex justify-end my-2 px-2">
+    <button  (click)="refreshing($event)"  type="button"  class="refresh_btn"> 
+      <span class="pt-[5px]">Refresh</span>
+  </button>
+  </section>
+  
+  
+  <section class="table_information">
+  
+      <div class="table_container ">
+        <table class="table-auto w-full leading-normal">
+          <thead>
+            <tr>
+              <th  class="">acc. number</th>
+              <th  class="">Customer ID</th>
+              <th class="">User Name</th>
+    
+              <th  class="">acc. balance</th>
+              <th  class="">date created</th>
+              <th  class="">State</th>
+    
+              <th  class="">error count</th>
+              <th  class="">Actions</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+    
+            <tr  *ngIf="isLoading">
+              <td  class="">   
+                  <ng-container >
+                      <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+                 
+              </td>
+              <td class=""> 
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+                
+              </td>
+              <td class="">
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+              </td>
+              <td class="">
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+              
+              </td>
+              <td class="">
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+                
+              </td>
+              <td class="">
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+               
+              </td>
+              <td class="" style="width: 20%;"> 
+              
+                  <ng-container >
+                      <ngx-skeleton borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
+                    </ng-container>
+    
+              </td>
+              <td class="relative" style="padding-left: 2px;"></td>
+            </tr>
+    
+            <tr  *ngFor="let unlockedProfile of unlockedProfilesAwaitingApproval; index as i">
+              <td  class="">{{ unlockedProfile?.accountnumber }}</td>
+              <td class="">{{ unlockedProfile?.customerid }}</td>
+              <td class="">{{ unlockedProfile?.username || 'N/A'}}</td>
+              <td class="">{{ unlockedProfile?.accountbal }} </td>
+              <td class="">{{ unlockedProfile?.createdon | date:'mediumDate'}} </td>
+              <td class="" [ngClass]="{'text-orange-400': checkStatus(unlockedProfile.status), 'text-ro-green': checkStatus(unlockedProfile.status)}">{{ unlockedProfile?.status }} </td>
+              <td class="" >{{ unlockedProfile?.errorcount }}</td>
+              <td class="relative" style="text-align: left;"><i (click)="showSummary(unlockedProfile)" class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+            </tr>
+           
+          </tbody>
+        </table>
+  
+        <div class="w-full h-full" *ngIf="unlockedProfilesAwaitingApproval.length < 1 && !isLoading">
+          <div class="notifications_dropdown_content insideUsers">
+           <div class="dontDisturbIsTrue flex">
+  
+             <div class="dontDisturb-content ">
+              <div class="first_part">
+                  <svg width="50" height="55" viewBox="0 0 22 30" fill="none">
+                      <path d="M21.8408 23.2072L19.854 20.1097V11.7394C19.854 7.0886 16.5491 3.24331 12.2524 2.60911V1.30446C12.2524 0.584151 11.692 0 11.0003 0C10.3088 0 9.74811 0.583845 9.74811 1.30446V2.60911C5.45148 3.24313 2.14651 7.08833 2.14651 11.7394V20.1097L0.159747 23.2072C-0.055596 23.6109 -0.0530984 24.1062 0.166484 24.5075C0.385819 24.9086 0.788307 25.1553 1.22426 25.1553H7.50912C7.66233 27.9474 9.49486 30 11.0002 30C12.5031 30 14.3309 27.8154 14.4906 25.1553H20.7762C21.2124 25.1553 21.6146 24.9086 21.834 24.5075C22.0528 24.1061 22.0556 23.6105 21.8407 23.207L21.8408 23.2072Z" fill="#EB2232"/>
+                  </svg>
+   
+                  <span class="times"><i class="fa fa-times text-white"></i></span>
+              </div>
+   
+              <div class="second_part">
+               <strong>Nothing to see here</strong>
+               <small class="dontDisturbText">You can <a (click)="fetchUnlockedProfilesAwaitingApproval()" class="font-semibold text-ro-genBlueColor-1 cursor-pointer" href="javascript:void(0)"><u>Refresh</u> </a> To get new information</small>
+              </div>
+             </div>
+          </div>
+          </div>
+       </div>
+      </div>
+     
+    </section>

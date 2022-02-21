@@ -19,12 +19,12 @@
     <div class="secondHalf bgSecondHalf">
         <div class=" h-auto w-full bg-white border rounded dropInFromRight">
             <div class="loginCustom loginForm">
-                <h4 class="login-title text-ro-genBlueColor-1">Welcome Back</h4>
+                <h4 class="login-title text-ro-genBlueColor-1">Welcome Back  <mat-slide-toggle (change)="triggerDoNotDisturb($event)">Switch Roles</mat-slide-toggle></h4>
                 <span class="text-ro-black-text sub-title">Please enter your credentials to login</span>
                 
 
                <form [formGroup]="loginForm" action="">
-                <div class="mt-7">
+                <div class="mt-7 relative">
                     <div class="form-group w-full relative">
                         <label for="username" class="absolute top-2 left-5 form-labels">Email</label>
                         <input formControlName="Username" type="email" placeholder="Enter username" 
@@ -37,7 +37,19 @@
                         <span (click)="changeVisibility()" class="absolute showOrHide top-8 right-5 cursor-pointer">{{showOrHide}}</span>
                     </div>
                     <div class="forgot_password w-full text-right my-7">
-                        <span class="text-ro-bgBlue-1 cursor-pointer">Forgot Login Credentials?</span>
+                        <span (click)="openGenerateToken('generateToken')" class="text-ro-bgBlue-1 cursor-pointer">Generate Token</span>
+                        <!-- for generating token -->
+                        <div class="generateToken">
+                            <div class="form-group w-full">
+                                <label for="password" class="form-labels">Staff ID: </label>
+                                <input [(ngModel)]="staffID" name="staffID" [ngModelOptions]="{standalone: true}" placeholder="Enter StaffId" 
+                                class=" form-control password w-full"> 
+
+                                <button (click)="generateToken($event)" [disabled]="staffID.length < 3" type="button">
+                                    Generate Token
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

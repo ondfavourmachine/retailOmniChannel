@@ -1,19 +1,27 @@
+<section class="w-full flex justify-end my-2 px-2">
+  <button  (click)="refreshing($event)"  type="button"  class="refresh_btn"> 
+    <!-- <img class="mr-2" src="../../../assets/images/fat_refresh.svg" alt="">  -->
+    <span class="pt-[5px]">Refresh</span>
+</button>
+</section>
+
+
 <section class="table_information">
 
-    <div class="table_container ">
-      <table class="table-auto w-full leading-normal">
+    <div class="table_container">
+      <table  class="table-auto w-full leading-normal">
         <thead>
           <tr>
-            <th  class="">acc. number</th>
+            <th  data-tooltip="Account Number" class="tooltip" >acc. number</th>
             <th  class="">Customer ID</th>
-            <th class="">User Name</th>
+            <th class="">Username</th>
   
-            <th  class="">acc. balance</th>
-            <th  class="">date created</th>
+            <th style="width: 12%;"  data-tooltip="Account Balance" class="tooltip">acc. bal.</th>
+            <th   style="width: 12%;" class="">Created on</th>
             <th  class="">State</th>
   
-            <th  class="">error count</th>
-            <th  class="">Actions</th>
+            <th  style="width: 12%;"  data-tooltip="Error Count" class="tooltip" >err. count</th>
+            <th  style="width: 13%;"  class="">Actions</th>
             
           </tr>
         </thead>
@@ -77,11 +85,11 @@
             <td class="">{{ user?.username || 'N/A'}}</td>
             <td class="">{{ user?.accountbal }} </td>
             <td class="">{{ user?.createdon | date:'mediumDate'}} </td>
-            <td class="" [ngClass]="{'text-ro-border-red': user.status == 'Profile Locked', 'text-ro-green': user.status != 'Profile Locked'}">{{ user?.status }} </td>
+            <td class="" [ngClass]="{'text-orange-400': returnAppropriateStatus(user.status), 'text-ro-green': !returnAppropriateStatus(user.status)}">{{ user?.status }} </td>
             <td class="" >{{ user?.errorcount }}</td>
             <td class="relative" style="padding-left: 2px;">
                  <div (click)="intiateLockOrUnLock('initiate Unlock', user)" class="actions text-ro-genBlueColor-1 cursor-pointer font-semibold">
-                     <svg id="lock_icon" xmlns="http://www.w3.org/2000/svg" class="mr-1" width="14" height="15" viewBox="0 0 19.476 24.588">
+                     <svg *ngIf="role?.role?.toLowerCase() != 'approver'" id="lock_icon" xmlns="http://www.w3.org/2000/svg" class="mr-1" width="14" height="15" viewBox="0 0 19.476 24.588">
                         <g id="Group_6591" data-name="Group 6591" transform="translate(-22.254 -19.484)">
                           <g id="unlock_user_avatar_people_male_profile" data-name="unlock, user, avatar, people, male, profile" transform="translate(22.504 19.735)">
                             <path id="Path_75455" data-name="Path 75455" d="M17.6,13.144c2.481,0,4.481-2.737,4.481-5.007A4.335,4.335,0,0,0,17.6,4a4.379,4.379,0,0,0-4.489,4.16C13.109,10.407,15.116,13.144,17.6,13.144Zm0-7.685a2.876,2.876,0,0,1,3.022,2.7c0,1.562-1.423,3.547-3.022,3.547s-3.029-1.985-3.029-3.547A2.919,2.919,0,0,1,17.6,5.459ZM25.976,21.15a5.051,5.051,0,0,1-1.868,3.576,9.422,9.422,0,0,1-6.16,2.627h0a.73.73,0,1,1,0-1.46A7.868,7.868,0,0,0,23.13,23.7a3.7,3.7,0,0,0,1.387-2.554A3.649,3.649,0,0,0,23.1,18.6a7.853,7.853,0,0,0-7.846-1.847.73.73,0,0,1-.453-1.387,9.335,9.335,0,0,1,9.305,2.19,5.036,5.036,0,0,1,1.868,3.6Zm-12.407.365h0V20.42A2.567,2.567,0,0,0,8.46,19.91a.744.744,0,0,0,1.46.292,1.1,1.1,0,0,1,2.19.219v1.095H8.46A1.46,1.46,0,0,0,7,22.975v3.649a1.46,1.46,0,0,0,1.46,1.46h5.109a1.46,1.46,0,0,0,1.46-1.46V22.975A1.46,1.46,0,0,0,13.569,21.515ZM8.46,26.624V22.975h5.109v3.649Z" transform="translate(-7 -3.996)" fill="#036"
@@ -89,7 +97,8 @@
                           </g>
                         </g>
                     </svg>
-                         Initiate Unlock
+                        
+                         {{ role?.role?.toLowerCase() == 'approver' ? 'Approve Unlock' :  'Initiate Unlock'}}
                    </div> 
                     <!-- <div class="circle_actions cursor-pointer" (click)="showActions($event, i, user)">
                         <div class="dontDisturbIsFalse_dropdown ">
@@ -109,6 +118,28 @@
          
         </tbody>
       </table>
+
+      <div class="w-full h-full" *ngIf="lockedUsers.length < 1 && !isLoading">
+         <div class="notifications_dropdown_content insideUsers">
+          <div class="dontDisturbIsTrue flex">
+
+            <div class="dontDisturb-content ">
+             <div class="first_part">
+                 <svg width="50" height="55" viewBox="0 0 22 30" fill="none">
+                     <path d="M21.8408 23.2072L19.854 20.1097V11.7394C19.854 7.0886 16.5491 3.24331 12.2524 2.60911V1.30446C12.2524 0.584151 11.692 0 11.0003 0C10.3088 0 9.74811 0.583845 9.74811 1.30446V2.60911C5.45148 3.24313 2.14651 7.08833 2.14651 11.7394V20.1097L0.159747 23.2072C-0.055596 23.6109 -0.0530984 24.1062 0.166484 24.5075C0.385819 24.9086 0.788307 25.1553 1.22426 25.1553H7.50912C7.66233 27.9474 9.49486 30 11.0002 30C12.5031 30 14.3309 27.8154 14.4906 25.1553H20.7762C21.2124 25.1553 21.6146 24.9086 21.834 24.5075C22.0528 24.1061 22.0556 23.6105 21.8407 23.207L21.8408 23.2072Z" fill="#EB2232"/>
+                 </svg>
+  
+                 <span class="times"><i class="fa fa-times text-white"></i></span>
+             </div>
+  
+             <div class="second_part">
+              <strong>Nothing to see here</strong>
+              <small class="dontDisturbText">You can <a (click)="fetchAllLockedUsers()" class="font-semibold text-ro-genBlueColor-1 cursor-pointer" href="javascript:void(0)"><u>Refresh</u> </a> To get new information</small>
+             </div>
+            </div>
+         </div>
+         </div>
+      </div>
     </div>
    
   </section>

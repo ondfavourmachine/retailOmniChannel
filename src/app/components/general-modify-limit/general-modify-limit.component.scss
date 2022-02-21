@@ -55,6 +55,10 @@
             transition: all 150ms ease-in-out;
         }
 
+        & table tbody tr{
+            @apply bg-red-300;
+        }
+
         & table tbody tr.hightened{
             @apply h-36 pt-2;
 
@@ -85,4 +89,12 @@
             }
         }
     }
+}
+
+.pending_color{
+   background-color: rgba(253, 186, 116, 1) !important;
+}
+
+.inactive{
+    @apply cursor-none pointer-events-none opacity-40;
 }

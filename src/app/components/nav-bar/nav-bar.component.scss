@@ -50,39 +50,39 @@
         }
         
     
-        & .notifications_dropdown_content{
-            @apply h-[67vh] mx-1 px-3 py-1;
-            & .dontDisturbIsTrue{
-                @apply h-full w-full justify-center items-center;
+        // & .notifications_dropdown_content{
+        //     @apply h-[67vh] mx-1 px-3 py-1;
+        //     & .dontDisturbIsTrue{
+        //         @apply h-full w-full justify-center items-center;
     
-            }
-            & .dontDisturb-content{
-               @apply w-full flex flex-col justify-center items-center;
-                & .first_part{
-                    @apply relative flex justify-center items-center w-24 h-24 bg-ro-dashboardSection-color rounded-full;
+        //     }
+        //     & .dontDisturb-content{
+        //        @apply w-full flex flex-col justify-center items-center;
+        //         & .first_part{
+        //             @apply relative flex justify-center items-center w-24 h-24 bg-ro-dashboardSection-color rounded-full;
     
-                    & .times{
-                      @apply  absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1
-                    }
-                }
+        //             & .times{
+        //               @apply  absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1
+        //             }
+        //         }
                 
-                & .second_part{
-                    @apply mt-4 text-center text-[#1A1A1A];
+        //         & .second_part{
+        //             @apply mt-4 text-center text-[#1A1A1A];
     
-                    & strong{
-                        @apply mb-1 block text-black;
-                    }
+        //             & strong{
+        //                 @apply mb-1 block text-black;
+        //             }
     
-                    & .dontDisturbText{
-                        font-family: "Campton Light";
-                        word-break: break-word;
-                        @apply inline-block w-[75%] text-center break-words;
-                    }
-                }
-            }
+        //             & .dontDisturbText{
+        //                 font-family: "Campton Light";
+        //                 word-break: break-word;
+        //                 @apply inline-block w-[75%] text-center break-words;
+        //             }
+        //         }
+        //     }
     
     
-        }
+        // }
     
         &.show{
           @apply block;

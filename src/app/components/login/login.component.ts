@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { PartialObserver } from 'rxjs';
-import { AStaffDetails, LoggedInStaffRole, LogInResponse } from 'src/app/models/authModel';
+import { LoggedInStaffRole, LogInResponse, TokenGeneratedResponse } from 'src/app/models/authModel';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { UtilityFuncsService } from 'src/app/services/utility-funcs.service';
 
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   showOrHide: string = "show";
   type: 'password'|'text' = 'password';
   loginForm: FormGroup = this.fb.group({});
+  staffID: string  = '';
   constructor(
     private authService: AuthServiceService,
     private utils: UtilityFuncsService,
@@ -70,6 +72,37 @@ export class LoginComponent implements OnInit {
 
   saveLoggedInUsersDetailsInLocalStorage(staff: LoggedInStaffRole){
     console.log(staff);
+  }
+
+
+  openGenerateToken(className: string){
+    (document.querySelector(`.${className}`) as HTMLElement).classList.toggle('open');
+  }
+
+  generateToken(event: Event){  
+    const btn = event.target as HTMLButtonElement;
+    const prevText = btn.textContent;
+    this.utils.loading4button(btn, 'yes', 'Generating...');
+    const pObserver: PartialObserver<TokenGeneratedResponse> = {
+      next: (val) =>{
+        this.utils.loading4button(btn, 'done', prevText as string);
+        this.utils.successSnackBar(`${val.data.description}`, `❌`);
+        this.loginForm.get('Token')?.patchValue(val.data.token);
+      },
+      error: error => {
+        this.utils.loading4button(btn, 'done', prevText as string);
+        this.utils.errorSnackBar(`Wrong staff Id passed!`, `✖`)
+      }
+    }
+
+    this.authService.fetchTokenForStaffToLogin(this.staffID, this.loginForm.value.Password).subscribe(pObserver)
+
+  }
+
+
+  triggerDoNotDisturb(event: MatSlideToggleChange){
+    const role = event.checked ? 'Approver' : 'Initiator';
+    this.authService.switchRoles(role).subscribe();
   }
 
 }

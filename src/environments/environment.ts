@@ -16,8 +16,16 @@ export const environment = {
     activeUsers: 'UserManagement/GetUnLockedUsers',
     lockAProfile: 'UserManagement/LockUserProfile',
     unlockAProfile: 'UserManagement/InitiateUnlockProfile',
+    approveUnlockProfile: 'UserManagement/ApproveUnlockProfile',
     searchUserByAcctNumber: 'UserManagement/GetUserDetailbyAccountNumber',
-    searchUsersWithDates: 'UserManagement/SearchUsers'
+    searchUsersWithDates: 'UserManagement/SearchUsers',
+    searchActiveUsersByDate: 'UserManagement/SearchUnLockedUsersByDate',
+    searchLockedUsersByDate: 'UserManagement/SearchLockedUsersByDate',
+    initiateUpdateLimit: "UserManagement/InitiateUpdateLimit",
+    searchUserByUsername: 'UserManagement/SearchUserTranslimit',
+    searchForActiveOrLockedUsersByAcctNumber: 'UserManagement/SearchLockedAndUnlockedUserByAcc',
+    searchUsersActiveAndLockedUsersByUsername: 'UserManagement/SearchusersByUsername',
+    fetchProfilesAwaitingApproval: 'UserManagement/GetUnlockProfilesForApproval'
   },
 
   dashboard: {
@@ -28,13 +36,16 @@ export const environment = {
    channelTransactions: `Transaction/GetTransactions`,
    fullAirtimeList: 'Transaction/GetAirtimeTransactions',
    billsTransactions: 'Transaction/GetBillsTransactions',
-   searchUserByAcctNumber: 'UserManagement/GetUserDetailbyAccountNumber'
+   searchUserByAcctNumber: 'UserManagement/GetUserDetailbyAccountNumber',
+   fetchAccountssByDateRange: 'Application/GetChannelRecordsByDateRange',
+   fetchTransactionsByDateRange: 'Transaction/GetTransactionsRecordsByDateRange'
  },
 
  transaction: {
    nipTransactions: 'Transaction/GetNipTransactions',
    mobileUssdRibTransactions: 'Transaction/GetTransactions',
-   getTransactionLimitsForAllCustomers: 'Transaction/GetUserTransactionLimits'
+   getTransactionLimitsForAllCustomers: 'Transaction/GetUserTransactionLimits',
+   getNipTransactionsByDateRange: 'Transaction/GetNipTransactionsByDateRange'
  }
 
 };

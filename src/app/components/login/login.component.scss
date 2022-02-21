@@ -28,6 +28,7 @@
     .login-title{
         font-family: "Campton Semi Bold"; 
         font-size: 1.35rem;
+        @apply flex justify-between;
     }
 
     .sub-title{

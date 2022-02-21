@@ -17,6 +17,8 @@ import { UssdtransactionsComponent } from '../../components/ussdtransactions/uss
 import { NqrtransactionsComponent } from '../../components/nqrtransactions/nqrtransactions.component';
 import { BillstransactionsComponent } from '../../components/billstransactions/billstransactions.component';
 import { AirtimetransactionsComponent } from '../../components/airtimetransactions/airtimetransactions.component';
+import { UnlockedProfilesPendingApprovalComponent } from '../../components/unlocked-profiles-pending-approval/unlocked-profiles-pending-approval.component';
+import { LimitupdatePendingApprovalComponent } from '../../components/limitupdate-pending-approval/limitupdate-pending-approval.component';
 
 
 
@@ -34,7 +36,8 @@ const routes: Routes = [
          { path: '', redirectTo: 'all', pathMatch: 'full'},
          { path: 'all', component: UsersComponent},
          { path: 'lockedProfiles', component: LockedUsersComponent},
-         { path: 'activeUsers', component: ActiveUsersComponent }
+         { path: 'activeUsers', component: ActiveUsersComponent },
+         { path: 'approvals', component: UnlockedProfilesPendingApprovalComponent}
       ] },
       { path: 'transactions', component: TransactionsComponent, children: [
         { path: '', redirectTo: 'nip', pathMatch: 'full'},
@@ -44,7 +47,8 @@ const routes: Routes = [
         { path: 'rib', component: RibtransactionsComponent},
         { path: 'nqr', component: NqrtransactionsComponent},
         { path: 'bills', component: BillstransactionsComponent},
-        { path: 'airtime', component: AirtimetransactionsComponent }
+        { path: 'airtime', component: AirtimetransactionsComponent },
+        { path: 'approvals', component: LimitupdatePendingApprovalComponent}
      ] },
     ]
   
@@ -73,6 +77,8 @@ const routes: Routes = [
     NqrtransactionsComponent,
     BillstransactionsComponent,
     AirtimetransactionsComponent,
+    UnlockedProfilesPendingApprovalComponent,
+    LimitupdatePendingApprovalComponent,
   
   ],
   imports: [

@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LogInResponse, userLoginDetails } from '../models/authModel';
+import { LogInResponse, TokenGeneratedResponse, userLoginDetails } from '../models/authModel';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -28,4 +28,29 @@ export class AuthServiceService {
       )
     )
   }
+
+  fetchTokenForStaffToLogin(staffId: string, password:string): Observable<TokenGeneratedResponse>{
+    const url = `${this.baseUrl}AuthBackend/GenerateToken`;
+    const body = {
+      Channel: 1,
+      Username: staffId,
+      Password: password,
+      Device: '',
+      GPS: '',
+      AppVersion: ''
+    }
+    return this.http.post<TokenGeneratedResponse>(url, body);
+  }
+
+  switchRoles(role: string){
+    const url = `${this.baseUrl}AuthBackend/SwitchRole`;
+    const params = new HttpParams().set('data', role);
+    return this.http.get(url, {params});
+  }
+
+  logout(body: {username: string, sessionId: string}): Observable<any>{
+    const url = `${this.baseUrl}AuthBackend/Logout`
+    return this.http.post(url, body);
+  }
 }
+

@@ -19,7 +19,7 @@ export class RetailomniInputComponent implements OnInit {
     let input:HTMLInputElement
     if(event.type == 'keydown') input = event.target as HTMLInputElement;
     else input = document.getElementById('searchAcc') as HTMLInputElement;
-    (event.type == 'keydown' || event.type == 'click' ) && input.value.length == 10 && !isNaN(parseInt(input.value)) ? this.customChange.emit(event) : null;
+    (event.type == 'keydown' || event.type == 'click' ) && input.value.length >= 8 ? this.customChange.emit(event) : null;
   }
 
 }

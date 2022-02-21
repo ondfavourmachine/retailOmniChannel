@@ -98,39 +98,40 @@
                         </td>
                       </tr>
 
-                  <tr   *ngFor="let customer of customersForLimitModification; index as i">
-                    <td  class="">   
+                  <tr  *ngFor="let customer of customersForLimitModification; index as i">
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}"  class="">   
                             {{ customer?.username }}
                     </td>
-                    <td class=""> 
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class=""> 
                         N/A
                       
                     </td>
-                    <td class=""> 
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class=""> 
                             {{ utils.formatNumber(customer?.daily_limit) }}  
                     </td>
-                    <td class="">
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class="">
                        
-                      {{ customer?.transactiontype }}   
+                      {{ customer?.trans_type == 2 ? 'Globus to other banks' : 'Globus to Globus' }}   
                       
                     </td>
-                    <td class="">
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class="">
                        
                         {{ utils.formatNumber(customer?.token) }}  
                       
                     </td>
                   
                    
-                    <td class="" style="width: 20%;"> 
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class="" style="width: 15%;"> 
                             <!-- <div  [ngClass]="{'text-ro-green': trans.errormessage == null, 'text-ro-border-red': trans.errormessage != null }">
                                 {{ trans?.status == null ? "Successfull" : trans?.status }}   
                             </div> -->
                           
-                         N/A
+                         {{ customer?.status == null  ? 'N/A' : customer?.status }}
                     </td>
-                    <td class="relative ">
+                    <td [ngClass]="{'pending_color': customer.status == 'PENDING'}" class="relative ">
                       <div 
                        (click)="updateACustomersLimit(customer)"
+                       [ngClass]="{'inactive': customer.status == 'PENDING'}"
                        class="w-full modify_limit_button  transition-all flex justify-between items-center hover:border hover:border-ro-border-red hover:rounded-sm hover:py-2 hover:px-2">
                         <svg id="noun_Limit_3187478"  width="23.762" height="19.053" viewBox="0 0 32.762 28.053">
                             <g id="Layer_5" data-name="Layer 5">
@@ -142,7 +143,7 @@
                               </g>
                             </g>
                         </svg>
-                        <span class="text-ro-border-red"> Modify Limit</span>
+                        <span  class="text-ro-border-red"> Modify Limit</span>
                       </div>
                     </td>
                   </tr>

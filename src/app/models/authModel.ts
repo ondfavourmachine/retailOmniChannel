@@ -15,6 +15,18 @@ export interface LogInResponse{
     }
 }
 
+export interface TokenGeneratedResponse{
+    statusCode: number,
+    hasError: boolean,
+    message: boolean,
+    data: {
+      userId: string,
+      token: string,
+      statusCode: string,
+      description: string
+    }
+  }
+
 export interface userLoginDetails{
     Username: string,
     Password: string,
@@ -28,6 +40,14 @@ export interface LockAProfileRequestBody{
     SessionId: string,
     DateIssued: string,
     Email: string
+}
+
+export interface ApproveUnLockAProfileRequestBody{
+    Username: string,
+    UnlockedBy: string,
+    SessionId: string,
+    Email: string,
+    Customerid: string
 }
 
 export interface AStaffDetails{

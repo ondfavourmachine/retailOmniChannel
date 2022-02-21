@@ -36,7 +36,7 @@ export interface searchCompRequiredInfo{
     // parentDivSelector: string
 }
 
-export type AccountStatus = "Profile Locked" | "Account Active";
+export type AccountStatus = "Profile Locked" | "Account Active" | 'PENDING APPROVAL';
 
 let reg: AccountStatus = 'Profile Locked';
 
@@ -60,6 +60,20 @@ export interface User{
     phoneno: string 
 }
 
+export type ComponentNamesInThisProject = 
+'LockedUsersComponent' | 'UsersComponent' | 'ActiveUsersComponent' | 'NiptransactionsComponent';
+
+export interface SearchResultFromDateRange{
+    component: null | ComponentNamesInThisProject,
+    data: User[]
+}
+
+
+
+export interface SuccessfulGetProfilesAwaitingApproval extends GenericGetHttpBackEndResponseFormat{
+    data: Array<User>,
+    error: any,
+}
 
 
 export interface SuccessfulGetAllUsers extends GenericGetHttpBackEndResponseFormat{
@@ -94,6 +108,16 @@ export interface FullCustomerDetails{
     userInfo: ACustomer
     reg: null | RegisterCustomerDetails,
     userLogs: []
+}
+
+export interface ACustomersUpdateLimit{
+    username: string,
+    customerid: null | string,
+    transtype: number,
+    dailylimit: number,
+    accountnumber: string,
+    createdon: string,
+    token: number
 }
 
 export interface RegisterCustomerDetails{
@@ -160,10 +184,17 @@ export interface AccountTypesInGlobus{
 export interface RetailBackend{
     totalMobileRecords: number
     totalRibRecords: number
-    totalSumMobileTransaction: number
-    totalSumRibTransaction: number
-    totalSumUssdTransaction: number
-    totalUssdRecords: number
+    totalSumMobileTransaction: any
+    totalSumRibTransaction: any
+    totalSumUssdTransaction: any
+    totalUssdRecords: number,
+    totalActiveAccounts?: number,
+    totalInActiveAccounts?: number
+
+    totalAirtimeCount?: number,
+    totalAirtmeSum?: null | string
+    totalBillsCount?: number
+    totalBillsSum?: null | string
 }
 
 export interface SuccessfullFetchingOfDashboardSummaries{
@@ -271,12 +302,25 @@ export interface MobileRIBUSSDTransactions{
 export interface ACustomerTransactionLimit{
         user_id: number,
         username: string
-        trans_type: 1,
+        trans_type: number,
         transactiontype: string,
         daily_limit: number,
-        token: number
+        status: null | 'PENDING' | 'APPROVED' | 'REJECTED',
+        token: number,
+        // modifiedTransactionDescription?: string
     
 }
+
+export interface IntiateUpdateLimit{
+    custormerUsername: string,
+    initiatedby: string,
+    transtype: number,
+    pinlimit: number,
+    tokenlimit: number,
+    reason: string,
+    session: string,
+    email: string
+  }
 
 export interface SuccessfulNipTransactions extends GenericGetHttpBackEndResponseFormat{
    data: NipTransaction[]

@@ -16,19 +16,20 @@
 
                 <div class="w-1/2">
                     <label for="transaction_type" class="block capitalize">Select Transaction Type</label>
-                    <select class="w-full" [(ngModel)]="transactionType" name="" id="transaction_type" >
+                    <!-- <select class="w-full" [(ngModel)]="transactionType" name="" id="transaction_type" >
                         <option value="" selected> Choose one...</option>
-                    </select>
+                    </select> -->
+                    <input [(ngModel)]="modifiedTransactionDescription" name="modifiedTransactionDescription" type="text" disabled class="rounded-[3px] w-full" id="username">
                 </div>  
             </div>
             <div class="inputs flex gap-5 w-full mb-4">
                 <div class="w-1/2">
                     <label for="pinLimit" class="block capitalize">Pin Limit</label>
-                    <input [(ngModel)]="pinLimit" type="text"  class="rounded-[3px] w-full" id="pinLimit">
+                    <input (change)="makeItReadable($event,'pinLimit')" [(ngModel)]="pinLimit" type="text"  class="rounded-[3px] w-full" id="pinLimit">
                 </div>
                 <div class="w-1/2">
                     <label for="token" class="block capitalize">Token Limit</label>
-                    <input  [(ngModel)]="tokenLimit" type="text"  class="rounded-[3px] w-full" id="token">
+                    <input (change)="makeItReadable($event, 'tokenLimit')"  [(ngModel)]="tokenLimit" type="text"  class="rounded-[3px] w-full" id="token">
                 </div>
             </div>
             <div class="reason  py-2 mb-10">
@@ -42,7 +43,7 @@
         <div>
             <a href="javascript:void(0)" class="">go back</a>
         </div>
-        <button (click)="updateLimit($event)" class=""> start Profile unlock </button>
+        <button (click)="updateLimit($event)" class=""> Modify Limit </button>
 
     </div>
 </div>

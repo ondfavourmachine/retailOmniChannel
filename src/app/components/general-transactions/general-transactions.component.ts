@@ -43,7 +43,7 @@ export class GeneralTransactionsComponent implements OnInit {
 
   openCustomerDetailsInfoModal(event: Event, acct: User){
     this.dialog.closeAll();
-    this.utils.showCustomerInfoModal(event, acct);
+    this.utils.showCustomerInfoModal(acct, event);
   }
 
 

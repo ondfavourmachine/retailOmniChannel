@@ -21,6 +21,7 @@ import { TransactionsSummaryComponent } from '../../components/transactions-summ
 import { QuickActionsLockUnLockModifyLimitComponent } from '../../components/quick-actions-lock-un-lock-modify-limit/quick-actions-lock-un-lock-modify-limit.component';
 import { GeneralModifyLimitComponent } from '../../components/general-modify-limit/general-modify-limit.component';
 import { UpdateACustomersLimitComponent } from '../../components/update-acustomers-limit/update-acustomers-limit.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -43,6 +44,7 @@ import { UpdateACustomersLimitComponent } from '../../components/update-acustome
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSlideToggleModule,

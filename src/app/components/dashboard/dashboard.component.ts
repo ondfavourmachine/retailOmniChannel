@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
@@ -16,6 +18,8 @@ import { GeneralTransactionsComponent } from '../general-transactions/general-tr
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  totalTransactionRecords : number  = 0;
+  totalAccountRecords : number  = 0;
   transactionsAreLoading: boolean = true;
   branchAcctsActiveAcctsInactiveAcctsAreLoading: boolean = true;
   channelRecordsIsLoading: boolean = true;
@@ -45,7 +49,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private dialog: MatDialog, public utils: UtilityFuncsService, private dService: DashboardService) { }
+    private datePipe: DatePipe,
+    private dialog: MatDialog, public utils: UtilityFuncsService, 
+    private dService: DashboardService) { }
 
   ngOnInit(): void {
     this.fetchTransactionsFromServer();
@@ -87,6 +93,7 @@ export class DashboardComponent implements OnInit {
         this.billsCount = airtimeAndBills.billsCount;
         this.billsSum = airtimeAndBills.billsSum;  
         this.transactionsAreLoading = false;
+        this.totalTransactionRecords = this.totalMobileAppTransactions + this.totalRibRecordsTransactions + this.totalUssdRecordsTransactions + this.airtimeCount + this.billsCount;
       },
       error: err => {
         console.log(err);
@@ -116,6 +123,7 @@ export class DashboardComponent implements OnInit {
         this.totalRibRecords = totalRibRecords;
         this.totalUssdRecords = totalUssdRecords;
         this.channelRecordsIsLoading = false;
+       
       },
       err => console.log(err)
     )
@@ -129,6 +137,8 @@ export class DashboardComponent implements OnInit {
       this.inActiveAccounts = inActiveAccounts,
       this.totalNumberOfAccounts = totalNumberOfAccounts;
       this.branchAcctsActiveAcctsInactiveAcctsAreLoading = false;
+
+      this.totalAccountRecords = this.totalNumberOfAccounts + this.totalMobileRecords + this.totalRibRecords + this.totalUssdRecords;
       },
       error: err => console.log(err)
     }
@@ -146,6 +156,89 @@ export class DashboardComponent implements OnInit {
   handleEvent(event: Event){
     console.log(event);
     this.informationForSearchComp = {searchEvent: event, parentComp: 'dashboard'};
+  }
+
+  handleEmittedDateRanges(event: {dates: FormGroup, event: Event}){
+    this.branchAcctsActiveAcctsInactiveAcctsAreLoading = true;
+    this.transactionsAreLoading = true;
+    this.filterAccountRecordsByDate(event);
+    this.filterTransactionRecordsByDate(event);   
+  }
+
+  filterAccountRecordsByDate(event: {dates: FormGroup, event: Event}){
+    const {value} = event.dates;
+    const {target: btn} = event.event;
+    const prevText = (btn as HTMLButtonElement).textContent;
+    this.utils.loading4button(btn as HTMLButtonElement, 'yes', 'Fetching...');
+    const convertedDates: string[] = [];
+    const rawDates : Date[] = []
+    Object.values(value).forEach(elem => {
+      rawDates.push(elem as Date);
+      const date = this.datePipe.transform(elem as string, 'dd/MM/YYYY') as string;
+      convertedDates.push(date);
+    });
+    const pObs: PartialObserver<SuccessfullFetchingOfDashboardSummaries> = {
+      next: val => {
+        if(val.message != null && (val.message as string).includes('Your session has expired')){
+          this.utils.errorSnackBar(val.message, 'close');
+          return;
+        }
+ 
+        const {totalMobileRecords, totalRibRecords, totalUssdRecords, totalActiveAccounts, totalInActiveAccounts} = val.retailBackend;       
+        this.totalNumberOfAccounts = (totalActiveAccounts ?? 0) + (totalInActiveAccounts ?? 0);
+        this.totalMobileRecords = totalMobileRecords;
+        this.totalRibRecords = totalRibRecords;
+        this.totalUssdRecords = totalUssdRecords;
+        this.accountAccounts = totalActiveAccounts ?? 0;
+        this.inActiveAccounts = totalInActiveAccounts ?? 0,
+        this.utils.loading4button(btn as HTMLButtonElement, 'done', prevText as string);
+        this.utils.successSnackBar(`Fetched Account records from ${rawDates.map(elem => this.datePipe.transform(elem, 'MMM d, y')).join(' to ')}`, 'close');
+        this.branchAcctsActiveAcctsInactiveAcctsAreLoading = false;
+      },
+      error: console.error
+    }
+    const [startDate, endDate] = convertedDates;
+    this.dService.getAccountsByDateRange({startDate, endDate}).subscribe(pObs)
+  }
+
+  filterTransactionRecordsByDate(event: {dates: FormGroup, event: Event}){
+    // this.transactionsAreLoading = true;
+    const {value} = event.dates;
+    const {target: btn} = event.event;
+    const prevText = (btn as HTMLButtonElement).textContent;
+    this.utils.loading4button(btn as HTMLButtonElement, 'yes', 'Fetching...');
+    const convertedDates: string[] = [];
+    const rawDates : Date[] = []
+    Object.values(value).forEach(elem => {
+      rawDates.push(elem as Date);
+      const date = this.datePipe.transform(elem as string, 'dd/MM/YYYY') as string;
+      convertedDates.push(date);
+    });
+    const pObs: PartialObserver<SuccessfullFetchingOfDashboardSummaries> = {
+      next: val => {
+        if(val.message != null && (val.message as string).includes('Your session has expired')){
+              this.utils.errorSnackBar(val.message, 'close');
+          return;
+        }
+        const{ totalMobileRecords, totalAirtmeSum, totalBillsCount, totalBillsSum, totalAirtimeCount, totalSumMobileTransaction, totalRibRecords,totalSumRibTransaction, totalUssdRecords,  totalSumUssdTransaction } = val.retailBackend;
+        this.totalMobileAppTransactions = totalMobileRecords;
+        this.totalSumMobileTransaction = isNaN(parseFloat(totalSumMobileTransaction)) ? 0 : parseFloat(totalSumMobileTransaction);
+        this.totalRibRecordsTransactions = totalRibRecords;
+        this.totalSumRibTransaction = isNaN(parseFloat(totalSumRibTransaction)) ? 0 : parseFloat(totalSumRibTransaction);
+        this.totalUssdRecordsTransactions = totalUssdRecords;
+        this.totalSumUssdTransaction = isNaN(parseFloat(totalSumUssdTransaction)) ? 0 : parseFloat(totalSumUssdTransaction);
+        this.airtimeSum = isNaN(parseFloat(totalAirtmeSum as string)) ? 0 : parseFloat(totalAirtmeSum as string);
+        this.airtimeCount = totalAirtimeCount as number;
+        this.billsCount  = totalBillsCount as number;
+        this.billsSum = isNaN(parseFloat(totalBillsSum as string)) ? 0 : parseFloat(totalBillsSum as string);
+        this.utils.loading4button(btn as HTMLButtonElement, 'done', 'Fetch');
+        this.utils.successSnackBar(`Got Transaction records from ${rawDates.map(elem => this.datePipe.transform(elem, 'MMM d, y')).join(' to ')}`, 'close');
+        this.transactionsAreLoading = false;
+      },
+      error: console.error
+    }
+    const [startDate, endDate] = convertedDates;
+    this.dService.getTransactionsByDateRange({startDate, endDate}).subscribe(pObs)
   }
   
  

@@ -61,4 +61,19 @@ export class DashboardService {
   }
 
 
+  getAccountsByDateRange(dates: {startDate: string, endDate: string}): Observable<SuccessfullFetchingOfDashboardSummaries>{
+    let params = Object.entries(dates).reduce((prev, [key, value]) => prev.set(key, value), new HttpParams());
+    const url = `${this.baseUrl}${environment.dashboard.fetchAccountssByDateRange}`;
+    return this.http.get<SuccessfullFetchingOfDashboardSummaries>(url, {params})
+  }
+
+  getTransactionsByDateRange(dates: {startDate: string, endDate: string}): Observable<SuccessfullFetchingOfDashboardSummaries>{
+    const role: LoggedInStaffRole = JSON.parse(sessionStorage.getItem(`role`) as string);
+    let params = Object.entries(dates).reduce((prev, [key, value]) => prev.set(key, value), new HttpParams());
+    params = params.set('email', role.email).set('sessionid', role.sessionId as string);
+    const url = `${this.baseUrl}${environment.dashboard.fetchTransactionsByDateRange}`;
+    return this.http.get<SuccessfullFetchingOfDashboardSummaries>(url, {params})
+  }
+
+
 }

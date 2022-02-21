@@ -6,12 +6,12 @@
     </div>
     <div class="w-full h-[92vh] bgSecondHalf">
         <ul class="pt-7 listParent pr-5 ">
-            <li (click)="gotoRoute($event, 'all')"  class="pl-7 py-3 mb-4 flex  items-center text-white font-medium"> 
+            <li [routerLink]= "['all']" [routerLinkActive]="['activated']"  class="pl-7 py-3 mb-4 flex  items-center text-white font-medium"> 
                 <span class="pr-4"><img src="../../../assets/images/dashboard_grp_icon.svg" alt=""></span>
                  Dashboard
             </li>
-            <li (click)="gotoRoute($event, 'users')"  class="pl-7 py-3 mb-4 flex items-center text-white"><span class="pr-4"><img src="../../../assets/images/individual_white_icon.svg" alt=""></span> Users</li>
-            <li  (click)="gotoRoute($event, 'transactions')" class="pl-7 py-3  flex items-center text-white"> <span class="pr-4"><img style="max-width: 100%;" src="../../../assets/images/transaction_white_icon.svg" alt=""></span>Transactions</li>
+            <li [routerLink]= "['users']"  [routerLinkActive]="['activated']"  class="pl-7 py-3 mb-4 flex items-center text-white"><span class="pr-4"><img src="../../../assets/images/individual_white_icon.svg" alt=""></span> Users</li>
+            <li [routerLink]= "['transactions']" [routerLinkActive]="['activated']" class="pl-7 py-3  flex items-center text-white"> <span class="pr-4"><img style="max-width: 100%;" src="../../../assets/images/transaction_white_icon.svg" alt=""></span>Transactions</li>
         </ul>
     </div>
 </div>

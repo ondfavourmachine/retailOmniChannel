@@ -602,7 +602,7 @@ button:disabled{
 
             & .search{
                 height: 4.5rem;
-                @apply w-full  rounded-lg bg-white border;
+                @apply w-full rounded-lg bg-white border;
             }
 
             & .filter{
@@ -697,7 +697,46 @@ button:disabled{
            & h5{
              @apply font-bold;
            }
+         
        }
+
+       & .approvalPending{
+        @apply w-full h-auto bg-white pt-4 pb-3 rounded-[3px] mb-3 px-6 ;
+
+        &__details{
+            @apply border-b-[1px] border-slate-200;
+            & .headings, .reason{
+                @apply flex justify-start gap-8;
+            }
+            & .headings span{
+                font-family: 'Campton Light';
+                font-size: .775rem;
+                @apply font-normal text-ro-black-text;
+            }
+
+            & .reason span{
+                @apply font-medium text-ro-genBlueColor-1;
+            }
+        }
+
+        &__buttons{
+          @apply flex justify-start gap-6 mt-4;
+
+           & button{
+            font-family: 'Campton Light';
+            @apply focus:outline-none py-2 rounded-sm;
+           }
+
+           & button:nth-child(1){
+            @apply px-10 border-2 border-ro-border-red bg-ro-border-red text-white ring-0 focus:ring-0 focus:ring-ro-border-red;
+            }
+           
+            & button:nth-child(2){
+                @apply border-[1px] border-ro-border-red bg-white text-ro-border-red font-semibold;
+            }
+        }
+
+     }
    }
 
 
@@ -824,12 +863,14 @@ button:disabled{
 
             & .caret_down{
                 transition: transform 200ms ease-in-out;
+                @apply cursor-pointer;
                 &.point_up{
                     transform: rotate(180deg);
-                }
-               
+                }   
                
             }
+
+           
 
 
         }
@@ -874,3 +915,146 @@ button:disabled{
 }
 
 
+// navbar Do not disturb styles
+ .notifications_dropdown_content{
+        @apply h-[67vh] mx-1 px-3 py-1;
+        & .dontDisturbIsTrue{
+            @apply h-full w-full justify-center items-center;
+
+        }
+        & .dontDisturb-content{
+        @apply w-full flex flex-col justify-center items-center;
+            & .first_part{
+                @apply relative flex justify-center items-center w-24 h-24 bg-ro-dashboardSection-color rounded-full;
+
+                & .times{
+                @apply  absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1
+                }
+            }
+            
+            & .second_part{
+                @apply mt-4 text-center text-[#1A1A1A];
+
+                & strong{
+                    @apply mb-1 block text-black;
+                }
+
+                & .dontDisturbText{
+                    font-family: "Campton Light";
+                    word-break: break-word;
+                    @apply inline-block w-[75%] text-center break-words;
+                }
+            }
+        }
+
+    }
+
+.insideUsers{
+    @apply h-[50vh];  
+}
+
+
+.generateToken{
+    @apply transition-all w-[12rem] h-32 absolute border shadow-md rounded-lg right-0 top-16 px-3 bg-white scale-0 z-30;
+
+    & .form-group{
+        @apply flex flex-col py-3 px-1;
+
+        & button{
+            font-family: 'Campton Book';
+            font-size: .875rem;
+            @apply w-5/6 self-start mt-3 bg-white border border-ro-genBlueColor-1 hover:bg-ro-genBlueColor-1 hover:text-white text-ro-genBlueColor-1 text-left px-2 py-1 opacity-100 rounded-sm cursor-pointer;
+
+            &:disabled{
+                @apply opacity-75;
+            }
+        }
+
+        & .form-control{
+            @apply pl-1 border border-ro-genBlueColor-1 rounded-sm;
+
+            &.form-control:focus{
+                border-color: #26282c;
+                box-shadow: 0px 0px 0px 0px transparent;
+                border-top: 1px solid #26282c;
+                border-left: 5px solid #000;
+             }
+        }
+
+        & .form-labels{
+            @apply self-start mb-1;
+        }
+
+        & input{
+            @apply h-7 self-start 
+        }
+    }
+
+    &.open{
+        @apply scale-100;
+    }
+}
+
+
+.refresh_btn{
+    font-family: 'Campton Light';
+    font-size: .85rem;
+    @apply px-4 cursor-pointer py-2 uppercase inline-flex items-center justify-center bg-ro-lightRed-bg text-white rounded-sm;
+}
+
+  .drop_down.logout_open{
+      border: 1px solid rgb(0 0 0 / 0.1);
+    @apply  rounded-full shadow-md;
+}
+
+.logout{
+    font-family: 'Campton Book';
+    border: 1px solid #E3E3E3;
+    @apply hover:bg-ro-hoverBlue-1 hover:text-white w-max hidden items-center text-[#585858] bg-white pl-3 pr-14 py-2 absolute top-8 -right-6 rounded-xl;
+
+    & #path{
+        fill: #003366;
+    }
+}
+
+
+.logout.show{
+    @apply flex items-center;
+    &:hover{
+        @apply border border-ro-hoverBlue-1;
+    }
+    &:hover #path{
+        fill: white;
+    }
+}
+
+// hasty styles for login page
+
+.login-title{
+    & .mat-slide-toggle-thumb{
+        background-color: var(--light-bgColor) !important;
+    }
+
+    &.mat-checked .mat-slide-toggle-thumb{
+        background-color: #ffff !important;
+    }
+    & .mat-slide-toggle-bar{
+        background-color:  #D0D0CE !important;
+    }
+
+    &.mat-checked .mat-slide-toggle-bar{
+        background-color: #00D114 !important;
+    }
+
+    & .mat-slide-toggle-content{
+        @apply text-sm;
+    }
+}
+
+// ends here
+
+// shrinking styles
+
+.customerInformationComp.shrink .mat-dialog-container{
+    transform: scale(0.1) !important;
+}

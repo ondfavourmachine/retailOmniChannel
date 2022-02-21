@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
-import { BillsTransaction, User } from '../models/generalModels';
+import { ACustomer, BillsTransaction, User } from '../models/generalModels';
 import { CustomerInformationComponent } from '../reusables/customer-information/customer-information.component';
 import { UserService } from './user.service';
 
@@ -31,6 +31,11 @@ export class UtilityFuncsService {
 
   formatNumber(value: any){
     return new Intl.NumberFormat('en-us').format(parseInt(value));
+  }
+
+  removeCommasAndReturnANumber(value: string){
+    const valToReturn = value.replace(/,/g, '');
+    return isNaN(parseInt(valToReturn)) ? 0 : parseInt(valToReturn);
   }
 
   formatNumberIntoMoney(val: number){
@@ -92,17 +97,18 @@ export class UtilityFuncsService {
   }
 
 
-  async showCustomerInfoModal(event: Event, user: User){  
-    const btn = event.target as HTMLButtonElement;
-    const prevText = btn.textContent;
-    this.loading4button(btn, 'yes', 'Fetching...');
-    // const dialog = this.dialog.open(CustomerInformationComponent, { width: '45vw', height: '90vh', panelClass: 'customerInformationComp'});
+  async showCustomerInfoModal(user: User | ACustomer, event?: Event, awaitingApproval?: boolean){  
+    console.log(user);
+    let btn, prevText;
+    if(event)btn = event.target as HTMLButtonElement;
+    if(btn) prevText = btn.textContent;
+    if(btn)this.loading4button(btn, 'yes', 'Fetching...');
     try {
-      const res = await this.userservice.getCustomerByAccountNumber(user.accountnumber);
+      const res = await this.userservice.getCustomerByAccountNumber((user as User).accountnumber ?? (user as ACustomer).primarY_ACCOUNT);
       console.log(res);
       const {userInfo, reg, userLogs, currentStatus} = res;
-      this.loading4button(btn, 'done', prevText as string);
-      const dialog = this.dialog.open(CustomerInformationComponent, { data: {...userInfo, userLogs: userLogs, currentStatus, reg: reg ?? null },width: '50vw', height: '90vh', panelClass: 'customerInformationComp'});
+      if(btn)this.loading4button(btn, 'done', prevText as string);
+      const dialog = this.dialog.open(CustomerInformationComponent, { data: {...userInfo, userLogs: userLogs, currentStatus: awaitingApproval ? 'PENDING APPROVAL' : currentStatus, reg: reg ?? null },width: '50vw', height: '90vh', panelClass: 'customerInformationComp'});
       dialog.afterClosed().subscribe(
         val => {
           if(typeof val == 'object'){
@@ -114,7 +120,7 @@ export class UtilityFuncsService {
     } catch (error) {
       console.log(error);
       this.errorSnackBar('Error occured while fetching information', 'close');
-      this.loading4button(btn, 'done', prevText as string);
+      if(btn)this.loading4button(btn, 'done', prevText as string);
     }
   }
 }

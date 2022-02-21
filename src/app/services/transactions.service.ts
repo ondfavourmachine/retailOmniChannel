@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BankOperation, SuccessfulFetchingOfCustomersTransactionLimits, SuccessfulMobileUSSDRIBTransactions, SuccessfulNipTransactions } from '../models/generalModels';
+import { ACustomersUpdateLimit, ACustomerTransactionLimit, BankOperation, IntiateUpdateLimit, SuccessfulFetchingOfCustomersTransactionLimits, SuccessfulMobileUSSDRIBTransactions, SuccessfulNipTransactions } from '../models/generalModels';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +34,26 @@ export class TransactionsService {
     .set('pageSize', pageInfo.pageSize)
     return this.http.get<SuccessfulFetchingOfCustomersTransactionLimits>(`${this.baseUrl}${environment.transaction.getTransactionLimitsForAllCustomers}`, {params});
   }
+
+  intiateUpdateLimit(req: IntiateUpdateLimit): Observable<{message: string, success: boolean}>{
+    const url = `${this.baseUrl}${environment.users.initiateUpdateLimit}`;
+    return this.http.post<{message: string, success: boolean}>(url, req);
+  }
+
+  searchForAUserToModifyLimit(username: string): Observable<Array<ACustomersUpdateLimit>>{
+    const url = `${this.baseUrl}${environment.users.searchUserByUsername}`;
+    const params = new HttpParams()
+    .set('username', username)
+    return this.http.get<Array<ACustomersUpdateLimit>>(url, {params});
+  }
+
+  searchNipTransByDateTimeAndOtherAccDetails(dates: string[],pageInfo: {pageNumber: number, pageSize: number}): Observable<any>{
+    const url = `${this.baseUrl}${environment.transaction.getNipTransactionsByDateRange}`;
+    const params = new HttpParams()
+      .set('pageNumber', pageInfo.pageNumber)
+      .set('pageSize', pageInfo.pageSize)
+      .set('startDate', dates[0])
+      .set('endDate', dates[1])
+    return this.http.get(url, {params});
+}
 }

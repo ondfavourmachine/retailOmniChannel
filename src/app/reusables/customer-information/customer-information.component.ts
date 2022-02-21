@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InitiateLockOrUnLockComponent } from 'src/app/components/initiate-lock-or-un-lock/initiate-lock-or-un-lock.component';
 import { UsersComponent } from 'src/app/components/users/users.component';
+import { LoggedInStaffRole } from 'src/app/models/authModel';
 import { AccountStatus, ACustomer, RegisterCustomerDetails } from 'src/app/models/generalModels';
 import { UtilityFuncsService } from 'src/app/services/utility-funcs.service';
 
@@ -11,7 +12,7 @@ import { UtilityFuncsService } from 'src/app/services/utility-funcs.service';
   styleUrls: ['./customer-information.component.scss']
 })
 export class CustomerInformationComponent implements OnInit {
-  
+  role: LoggedInStaffRole | undefined;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ACustomer & {reg: RegisterCustomerDetails} & { currentStatus:  AccountStatus } & {userLogs: Array<any>}, 
     private dialog: MatDialog,
@@ -21,10 +22,13 @@ export class CustomerInformationComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+    this.role = JSON.parse(sessionStorage.getItem('role') as string);
+    
   }
 
   intiateLockOrUnLock(){
-    this.dialog.closeAll();
+   const currentlyOpenElement =  document.querySelector('.customerInformationComp');
+    currentlyOpenElement?.classList.contains('shrink') ? currentlyOpenElement.classList.remove('shrink') : currentlyOpenElement?.classList.add('shrink'); 
     const dialog = this.dialog.open(
       InitiateLockOrUnLockComponent, 
       {width:'40vw', 
@@ -35,7 +39,9 @@ export class CustomerInformationComponent implements OnInit {
         user: this.data.reg ?? this.data
       }})
     dialog.afterClosed().subscribe(
-      val => console.log(val),
+      val =>{
+        currentlyOpenElement?.classList.remove('shrink');
+      },
       err => console.log(err)
     )
   }

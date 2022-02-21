@@ -35,20 +35,22 @@
                         </svg> 
                         unlocked profiles
                     </div>
-                    <div [ngClass]="{'opacity-10': fadeApproval, 'pointer-events-none': fadeApproval}" class="capitalize text-white toggle_Group_item  px-4 rounded-2xl py-2">Approvals</div>
+                    <div [ngClass]="{'opacity-10': fadeApproval, 'pointer-events-none': fadeApproval}"
+                     (click)="setSelected($event)" id="approvals"
+                     class="capitalize text-white toggle_Group_item  px-4 rounded-2xl py-2">Approvals</div>
                 </div>
             </div>
              <!-- (click)="showCustomerInfoModal($event)"   -->
             <div class="w-5/12 h-5/6 flex justify-end items-end px-1">
-                <button *ngIf="!showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
+                <!-- <button *ngIf="!showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
                     <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
                     <span class="pt-[5px]">initiate Profile unlock</span>
-                </button>
+                </button> -->
 
-                <button *ngIf="showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
+                <!-- <button *ngIf="showLockAProfileButton"  type="button"  class="initiateProfileUnlock"> 
                     <img class="mr-2" src="../../../assets/images/unlock_white.svg" alt=""> 
                     <span class="pt-[5px]">Lock A Profile</span>
-                </button>
+                </button> -->
             </div>
          </section>
 
@@ -58,7 +60,9 @@
                 <div class="search px-4 py-2">
                     <label for=""> What are you looking for?</label>
                     <div class="filter py-3">
-                        <app-retailomni-input (change)="handleEvent($event)"></app-retailomni-input>
+                        <app-retailomni-input 
+                         (customChange)="fetchDataUsingSearchQuery($event)"
+                         ></app-retailomni-input>
                     </div>
                 </div>
                
@@ -75,7 +79,9 @@
             </section>
 
 
-                <router-outlet></router-outlet>
+                <router-outlet
+                 (activate)="getComponentInDisplay($event)"
+                 ></router-outlet>
      
         </div>
     </div>

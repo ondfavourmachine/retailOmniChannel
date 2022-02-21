@@ -32,7 +32,7 @@ export class GeneralModifyLimitComponent implements OnInit {
 
   updateACustomersLimit(customer: ACustomerTransactionLimit){
     this.dialog.closeAll()
-    this.dialog.open(UpdateACustomersLimitComponent, {
+    const dialog = this.dialog.open(UpdateACustomersLimitComponent, {
       width: '60vw',
       height: '70vh',
       panelClass: 'transactionLimitUpdate',
@@ -40,6 +40,10 @@ export class GeneralModifyLimitComponent implements OnInit {
         customer,
       }
     })
+    dialog.afterClosed().subscribe(
+      val => console.log(val),
+      // err => console.log(err)
+    )
   }
 
 }

@@ -6,7 +6,9 @@
             <section class="searchAndDate dashboardSearchContainer relative">
                 <div class="searchAndDate__body " style="overflow:visible">
                     <div class="search px-6 py-2">
-                        <app-retailomni-date-range [information]="info"></app-retailomni-date-range>
+                        <app-retailomni-date-range 
+                        (fetchDataWithDateParams)="handleEmittedDateRanges($event)"
+                        [information]="info"></app-retailomni-date-range>
                     </div>
                
                     <div class="filter px-4 py-3">
@@ -31,7 +33,7 @@
             </div>
             <div class="part-two">
             <span class="accounts_title">Total Accounts</span>
-            <span class="accounts_figure">1412</span>
+            <span class="accounts_figure">{{ utils.formatNumber(totalAccountRecords)  }}</span>
             </div>
             </div>
 
@@ -66,7 +68,7 @@
                         <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
                     </ng-container>
 
-                    <span  *ngIf="!branchAcctsActiveAcctsInactiveAcctsAreLoading" class="accounts_information__figures">{{ utils.formatNumber(totalNumberOfAccounts)  }}</span>
+                    <span  *ngIf="!branchAcctsActiveAcctsInactiveAcctsAreLoading" class="accounts_information__figures">{{ utils.formatNumber(inActiveAccounts)  }}</span>
                 </div>
             </div>
             <div  class="accounts_information__innerHouse ">
@@ -114,11 +116,10 @@
                         <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="100%"></ngx-skeleton>
                         <ngx-skeleton  borderRadius="12px" height="10px" margin="0 0 8px 0" width="40%"></ngx-skeleton>
                     </ng-container>
-                    <!-- <span class="accounts_information__figures">70</span> -->
+                 
                 </div>
             </div>
-            <!-- <div>09</div>
-            <div>09</div> -->
+          
             </div>
             </div>
             </section>
@@ -134,7 +135,7 @@
             </div>
                 <div class="part-two">
                     <span class="accounts_title">All Transactions</span>
-                    <span class="accounts_figure">112</span>
+                    <span class="accounts_figure">{{ utils.formatNumber(totalTransactionRecords)  }}</span>
                 </div>
             </div>
 

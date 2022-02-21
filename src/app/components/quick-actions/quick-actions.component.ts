@@ -23,7 +23,7 @@ export class QuickActionsComponent implements OnInit {
         this.dialog.open(
           QuickActionsLockUnLockModifyLimitComponent,
           {
-            width: '45vw',
+            width: '50vw',
             height: '50vh',
             maxHeight: '65vh',
             panelClass: 'quickActionsUnlockLockModifyLimit',
@@ -37,7 +37,7 @@ export class QuickActionsComponent implements OnInit {
         this.dialog.open(
           QuickActionsLockUnLockModifyLimitComponent,
           {
-            width: '50vw',
+            width: '60vw',
             height: '50vh',
             maxHeight: '65vh',
             panelClass: 'quickActionsUnlockLockModifyLimit',

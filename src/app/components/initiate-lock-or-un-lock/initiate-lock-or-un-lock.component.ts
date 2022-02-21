@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AStaffDetails, LockAProfileRequestBody, LoggedInStaffRole } from 'src/app/models/authModel';
+import { ApproveUnLockAProfileRequestBody, AStaffDetails, LockAProfileRequestBody, LoggedInStaffRole } from 'src/app/models/authModel';
 import { ACustomer, RegisterCustomerDetails, User } from 'src/app/models/generalModels';
 import { UserService } from 'src/app/services/user.service';
 import { UtilityFuncsService } from 'src/app/services/utility-funcs.service';
@@ -33,6 +33,7 @@ export class InitiateLockOrUnLockComponent implements OnInit {
     console.log(this.data);
     this.staff = JSON.parse(sessionStorage.getItem('logged_user_info') as string);
     this.role = JSON.parse(sessionStorage.getItem('role') as string)
+
   }
 
 
@@ -58,8 +59,9 @@ export class InitiateLockOrUnLockComponent implements OnInit {
     }
     const btn = event.target as HTMLButtonElement;  
     const prevText = btn.textContent;
-    this.utils.loading4button(btn, 'yes', close == 'lock' ? 'Initiating Lock...': "Initiating Unlock...");
-    close == 'lock' ? this.lockAProfile(formToSubmit, btn, prevText as string) : this.unlockAProfile(formToSubmit, btn, prevText as string);
+    this.utils.loading4button(btn, 'yes', close == 'lock' ? 'Initiating Lock...': this.role?.role.toLowerCase() == 'approver' ? 'Approving Unlock' : "Initiating Unlock...");
+    close == 'lock' ? this.lockAProfile(formToSubmit, btn, prevText as string) : 
+    this.role?.role.toLowerCase() == 'approver' ? this.approveUnlockProfile(btn, prevText as string) : this.unlockAProfile(formToSubmit, btn, prevText as string);
    
   }
 
@@ -116,6 +118,7 @@ export class InitiateLockOrUnLockComponent implements OnInit {
               }
             }
             ).close('updated');
+            this.utils.successSnackBar(`Unlocking the ${formToSubmit.CustomerUsername ?? 'user'} was successful!`, 'close');
           return;
         }
         this.utils.loading4button(btn, 'done', prevText);
@@ -126,6 +129,59 @@ export class InitiateLockOrUnLockComponent implements OnInit {
         this.utils.loading4button(btn, 'done', prevText as string);
       }
     )
+  }
+
+  approveUnlockProfile(button: HTMLButtonElement, prevText: string){
+    const profile: ApproveUnLockAProfileRequestBody = {
+      Username: this.data.user.username,
+      Customerid: this.data.user.customerid,
+      Email: this.role?.email as string,
+      UnlockedBy: this.staff?.displayName as string,
+      SessionId: this.role?.sessionId as string,
+    };
+    if(profile.Username == null){
+      this.utils.errorSnackBar('Approving unlock for this user cannot be done at this moment', 'close');
+      this.utils.loading4button(button, 'done', prevText as string);
+      return;
+    }
+    this.userservice.approveUnlockProfile(profile)
+    .subscribe(
+      val => {
+        if(val.success){
+          this.utils.loading4button(button, 'done', prevText as string);
+          this.dialogRef.close(val.responseMessage);
+          const dialog = this.dialog.open(
+            SuccessfulUpdateComponent, 
+            {
+              width: '40vw', 
+              height: '50vh', 
+              panelClass: 'successful_update',
+              data: { 
+                person: this.data.user.firstname + ' ' + (this.data.user as User).surname ?? (this.data.user as RegisterCustomerDetails).lastname, 
+                type: close
+              }
+            }
+            );
+            this.closeAll();
+            this.utils.successSnackBar(`Unlocking the ${profile.Username ?? 'User'} was successful!`, 'close');
+          return;
+        }
+        this.utils.loading4button(button, 'done', prevText as string);
+        this.utils.errorSnackBar(`${val.responseMessage.includes('Please log in') ? val.responseMessage : 'unlocking the user account failed!'}`, 'close');
+      },
+      err => console.log(err)
+    );
+  }
+
+  goBack(){
+    this.dialogRef.close({
+      componentToOpen: 'CustomerInformationComponent',
+      idOfUserToShow: this.data.user.customerid
+    });
+  }
+
+  closeAll(){
+    this.dialog.closeAll();
   }
  
 

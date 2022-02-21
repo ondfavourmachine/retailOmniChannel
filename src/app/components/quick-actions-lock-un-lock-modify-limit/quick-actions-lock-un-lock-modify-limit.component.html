@@ -28,7 +28,7 @@
 
             <div [style.opacity]="displayTable ? '1': '0'">
                 <section class="table_information">
-                        <div class="table_container ">
+                        <div class="table_container relative">
                             <table class="table-auto w-full leading-normal">
                             <thead>
                                 <tr>
@@ -85,11 +85,27 @@
                                 <td class=""> {{ completeCustomerInfo?.primarY_ACCOUNT }}</td>
                                 <td class=""> {{ completeCustomerInfo?.username || 'N/A'}}</td>
                                 <td [ngClass]="{ 'text-ro-green':  completeCustomerInfo?.currentStatus == 'Account Active', 'text-ro-border-red': completeCustomerInfo?.currentStatus != 'Account Active' }" class=""> {{ completeCustomerInfo?.currentStatus}} </td>
-                                <td class="relative" ><i class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+                                <td (click)="launchAppropriateModal(completeCustomerInfo)" class="relative" ><i class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
                                 </tr>
                             
                             </tbody>
                             </table>
+                            <div [style.display]="nothingToSee ? 'block':'none'" class="absolute bg-white top-0 bottom-0 right-0 left-0 rounded-md h-[30vh]">
+                                <div class="dontDisturb-content pt-5  flex flex-col justify-center items-center">
+                                    <div class="first_part flex justify-center items-center relative rounded-full w-24 h-24 bg-ro-dashboardSection-color">
+                                        <svg width="50" height="55" viewBox="0 0 22 30" fill="none">
+                                            <path d="M21.8408 23.2072L19.854 20.1097V11.7394C19.854 7.0886 16.5491 3.24331 12.2524 2.60911V1.30446C12.2524 0.584151 11.692 0 11.0003 0C10.3088 0 9.74811 0.583845 9.74811 1.30446V2.60911C5.45148 3.24313 2.14651 7.08833 2.14651 11.7394V20.1097L0.159747 23.2072C-0.055596 23.6109 -0.0530984 24.1062 0.166484 24.5075C0.385819 24.9086 0.788307 25.1553 1.22426 25.1553H7.50912C7.66233 27.9474 9.49486 30 11.0002 30C12.5031 30 14.3309 27.8154 14.4906 25.1553H20.7762C21.2124 25.1553 21.6146 24.9086 21.834 24.5075C22.0528 24.1061 22.0556 23.6105 21.8407 23.207L21.8408 23.2072Z" fill="#EB2232"/>
+                                        </svg>
+        
+                                        <span class="times absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1"><i class="fa fa-times text-white"></i></span>
+                                    </div>
+        
+                                    <div class="second_part flex flex-col justify-center items-center">
+                                     <strong>Nothing to see here</strong>
+                                     <small class="dontDisturbText inline-block w-[75%] text-center break-words">The username searched didn't return any results</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>   
                 </section>
             </div>
@@ -113,8 +129,8 @@
           <div mat-dialog-close class=" h-8"> <img class="max-h-full max-w-full" src="../../../assets/images/closeBtn.svg" alt=""> </div>
     </div>
 
-    <div class="w-full h-auto px-7  py-3 bg-[#F3F9FF]">
-        <div class="h-[38vh] pt-10 px-8 w-full">
+    <div class="w-full h-[75vh] px-7  py-3 bg-[#F3F9FF]">
+        <div class="h-auto pt-10 px-8 w-full">
 
             <div class="question relative mt-3 mb-4">
                 <label for="question_input" class="question_text">Search for account to Update </label>
@@ -130,7 +146,7 @@
 
             <div [style.opacity]="displayTable ? '1': '0'">
                 <section class="table_information">
-                        <div class="table_container ">
+                        <div class="table_container relative">
                             <table class="table-auto w-full leading-normal">
                             <thead>
                                 <tr>
@@ -142,7 +158,7 @@
                                 <th>Action</th> 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="">
                         
                                 <tr  *ngIf="isLoading">
                                 <td  class="">   
@@ -181,13 +197,43 @@
                                 
                                 </tr>
                         
-                                <tr  >
-                                <td  class=""> {{ completeCustomerInfo?.customerid }}</td>
-                                <td class=""> {{ completeCustomerInfo?.primarY_ACCOUNT }}</td>
-                                <td class=""> {{ completeCustomerInfo?.username || 'N/A'}}</td>
-                                <td [ngClass]="{ 'text-ro-green':  completeCustomerInfo?.currentStatus == 'Account Active', 'text-ro-border-red': completeCustomerInfo?.currentStatus != 'Account Active' }" class=""> {{ completeCustomerInfo?.currentStatus}} </td>
-                                <td class="relative" ><i class="fa fa-eye text-ro-genBlueColor-1 cursor-pointer text-lg"></i> </td>
+                                <tr *ngFor="let customer of completeCustomerInfoForLimitUpdate; index as i"  >
+                                <td  class=""> {{ customer?.username }}</td>
+                                <td class=""> {{ customer?.accountnumber }}</td>
+                                <td class=""> Globus Savings </td>
+                                <td  class=""> {{ utils.formatNumber( customer?.dailylimit ) }} </td>
+                                <td  class=""> {{ utils.formatNumber( customer?.token ) }} </td>
+                                <td class="relative" >
+                                     
+                                     <!-- (click)="updateLimit(customer)" -->
+                                     <button 
+                                     (click)="updateLimit(customer)"
+                                     class="
+                                     transition-all
+                                     hover:bg-ro-border-red hover:text-white cursor-pointer
+                                     border px-4 py-2 border-ro-border-red text-ro-border-red">
+                                         Update Limit
+                                     </button>
+                                    
+                                 </td>
                                 </tr>
+
+                                <div [style.display]="nothingToSee ? 'block':'none'" class="absolute bg-white top-0 bottom-0 right-0 left-0 rounded-md h-[30vh]">
+                                    <div class="dontDisturb-content pt-5  flex flex-col justify-center items-center">
+                                        <div class="first_part flex justify-center items-center relative rounded-full w-24 h-24 bg-ro-dashboardSection-color">
+                                            <svg width="50" height="55" viewBox="0 0 22 30" fill="none">
+                                                <path d="M21.8408 23.2072L19.854 20.1097V11.7394C19.854 7.0886 16.5491 3.24331 12.2524 2.60911V1.30446C12.2524 0.584151 11.692 0 11.0003 0C10.3088 0 9.74811 0.583845 9.74811 1.30446V2.60911C5.45148 3.24313 2.14651 7.08833 2.14651 11.7394V20.1097L0.159747 23.2072C-0.055596 23.6109 -0.0530984 24.1062 0.166484 24.5075C0.385819 24.9086 0.788307 25.1553 1.22426 25.1553H7.50912C7.66233 27.9474 9.49486 30 11.0002 30C12.5031 30 14.3309 27.8154 14.4906 25.1553H20.7762C21.2124 25.1553 21.6146 24.9086 21.834 24.5075C22.0528 24.1061 22.0556 23.6105 21.8407 23.207L21.8408 23.2072Z" fill="#EB2232"/>
+                                            </svg>
+            
+                                            <span class="times absolute top-16 right-[1px] w-7 h-7 rounded-[50%] flex justify-center items-center bg-ro-genBlueColor-1"><i class="fa fa-times text-white"></i></span>
+                                        </div>
+            
+                                        <div class="second_part flex flex-col justify-center items-center">
+                                         <strong>Nothing to see here</strong>
+                                         <small class="dontDisturbText inline-block w-[75%] text-center break-words">The username searched didn't return any results</small>
+                                        </div>
+                                    </div>
+                                </div>
                             
                             </tbody>
                             </table>
